@@ -1,0 +1,1309 @@
+Model {
+  Name			  "tev5sim"
+  Version		  3.00
+  SimParamPage		  "Solver"
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  off
+  ShowPortDataTypes	  off
+  StartTime		  "0.0"
+  StopTime		  "0.3"
+  SolverMode		  "SingleTasking"
+  Solver		  "ode1"
+  RelTol		  "1e-3"
+  AbsTol		  "1e-6"
+  Refine		  "1"
+  MaxStep		  "auto"
+  InitialStep		  "auto"
+  FixedStep		  "1/3600"
+  MaxOrder		  5
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Matrix"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  "warning"
+  MinStepSizeMsg	  "warning"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  IntegerOverflowMsg	  "warning"
+  UnnecessaryDatatypeConvMsg "none"
+  Int32ToFloatConvMsg	  "warning"
+  SignalLabelMismatchMsg  "none"
+  ConsistencyChecking	  "off"
+  ZeroCross		  on
+  SimulationMode	  "normal"
+  BlockDataTips		  on
+  BlockParametersDataTip  on
+  BlockAttributesDataTip  off
+  BlockPortWidthsDataTip  off
+  BlockDescriptionStringDataTip	off
+  BlockMaskParametersDataTip off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  OptimizeBlockIOStorage  on
+  BufferReuse		  on
+  BooleanDataType	  off
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "oneshot"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  off
+  Created		  "Thu Mar 07 19:29:15 2002"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "default"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Thu Mar 07 19:29:36 2002"
+  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  ConfigurationManager	  "none"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "tev5sim"
+    Location		    [4, 74, 724, 621]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    AutoZoom		    on
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Mux
+      Name		      "IDV"
+      Ports		      [20, 1, 0, 0, 0]
+      Position		      [95, 137, 130, 363]
+      Inputs		      "20"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV1"
+      Position		      [15, 15, 35, 35]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV10"
+      Position		      [45, 195, 65, 215]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV11"
+      Position		      [15, 220, 35, 240]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV12"
+      Position		      [45, 235, 65, 255]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV13"
+      Position		      [15, 260, 35, 280]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV14"
+      Position		      [45, 275, 65, 295]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV15"
+      Position		      [15, 300, 35, 320]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV16"
+      Position		      [45, 315, 65, 335]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV17"
+      Position		      [15, 340, 35, 360]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV18"
+      Position		      [45, 355, 65, 375]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV19"
+      Position		      [15, 380, 35, 400]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV2"
+      Position		      [45, 35, 65, 55]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV20"
+      Position		      [45, 395, 65, 415]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV3"
+      Position		      [15, 60, 35, 80]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV4"
+      Position		      [45, 75, 65, 95]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV5"
+      Position		      [15, 100, 35, 120]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV6"
+      Position		      [45, 115, 65, 135]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV7"
+      Position		      [15, 140, 35, 160]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV8"
+      Position		      [45, 155, 65, 175]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "IDV9"
+      Position		      [15, 180, 35, 200]
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [175, 372, 210, 408]
+      Inputs		      "2"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      "S-Function"
+      Name		      "S-Function"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [230, 375, 290, 405]
+      FunctionName	      "tesfunc"
+      PortCounts	      "[]"
+      SFunctionModules	      "''"
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator1"
+      Position		      [445, 265, 465, 285]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator13"
+      Position		      [515, 310, 535, 330]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator14"
+      Position		      [595, 310, 615, 330]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator15"
+      Position		      [665, 310, 685, 330]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator16"
+      Position		      [445, 365, 465, 385]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator17"
+      Position		      [515, 365, 535, 385]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator19"
+      Position		      [595, 365, 615, 385]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator2"
+      Position		      [515, 265, 535, 285]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator20"
+      Position		      [665, 365, 685, 385]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator21"
+      Position		      [445, 400, 465, 420]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator22"
+      Position		      [515, 400, 535, 420]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator23"
+      Position		      [595, 400, 615, 420]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator24"
+      Position		      [665, 400, 685, 420]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator25"
+      Position		      [445, 435, 465, 455]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator26"
+      Position		      [515, 435, 535, 455]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator27"
+      Position		      [595, 435, 615, 455]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator28"
+      Position		      [665, 435, 685, 455]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator29"
+      Position		      [445, 470, 465, 490]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator3"
+      Position		      [595, 265, 615, 285]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator30"
+      Position		      [515, 470, 535, 490]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator31"
+      Position		      [595, 470, 615, 490]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator32"
+      Position		      [665, 470, 685, 490]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator33"
+      Position		      [445, 515, 465, 535]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator34"
+      Position		      [515, 515, 535, 535]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator35"
+      Position		      [595, 515, 615, 535]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator36"
+      Position		      [665, 515, 685, 535]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator37"
+      Position		      [445, 560, 465, 580]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator38"
+      Position		      [515, 560, 535, 580]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator39"
+      Position		      [595, 560, 615, 580]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator4"
+      Position		      [665, 265, 685, 285]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator40"
+      Position		      [665, 560, 685, 580]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator41"
+      Position		      [445, 600, 465, 620]
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator5"
+      Position		      [445, 310, 465, 330]
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace"
+      Position		      [270, 220, 330, 250]
+      VariableName	      "XMEAS"
+      Buffer		      "inf"
+      Decimation	      "1"
+      SampleTime	      "-1"
+      SaveFormat	      "Matrix"
+    }
+    Block {
+      BlockType		      Demux
+      Name		      "XMEAS"
+      Ports		      [1, 41, 0, 0, 0]
+      Position		      [320, 290, 355, 490]
+      Outputs		      "41"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 10 Purge Rate"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [650, 140, 680, 170]
+      Floating		      off
+      Location		      [471, 353, 795, 592]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "0.29"
+      YMax		      "0.35"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS10"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 11 Prod Sep Temp"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [650, 25, 680, 55]
+      Floating		      off
+      Location		      [471, 355, 795, 594]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "75"
+      YMax		      "105"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS11"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 12 Prod Sep Level"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [650, 85, 680, 115]
+      Floating		      off
+      Location		      [117, 282, 441, 521]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "40"
+      YMax		      "70"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS12"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 18 Stripper Temp"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [650, 200, 680, 230]
+      Floating		      off
+      Location		      [468, 70, 792, 309]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "65"
+      YMax		      "74"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS18"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 6 Rx Feed"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [435, 25, 465, 55]
+      Floating		      off
+      Location		      [309, 67, 633, 306]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "39"
+      YMax		      "43"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS6"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 7 Rx Press"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [435, 85, 465, 115]
+      Floating		      off
+      Location		      [307, 62, 631, 301]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "2500"
+      YMax		      "2800"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS7"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 8 Rx Level"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [435, 145, 465, 175]
+      Floating		      off
+      Location		      [475, 428, 795, 594]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "72"
+      YMax		      "77"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS8"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "XMEAS 9 Reac Temp"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [435, 205, 465, 235]
+      Floating		      off
+      Location		      [188, 355, 512, 594]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "120"
+      YMax		      "140"
+      SaveToWorkspace	      off
+      SaveName		      "XMEAS9"
+      DataFormat	      "Matrix"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "XMV"
+      Ports		      [12, 1, 0, 0, 0]
+      Position		      [105, 452, 140, 678]
+      Inputs		      "12"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV1"
+      Position		      [0, 446, 35, 464]
+      Value		      "63.053"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV10"
+      Position		      [45, 620, 80, 640]
+      Value		      "41.106"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV11"
+      Position		      [0, 644, 40, 666]
+      Value		      "18.114"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV12"
+      Position		      [45, 660, 80, 680]
+      Value		      "50.000"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV2"
+      Position		      [45, 459, 80, 481]
+      Value		      "53.980"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV3"
+      Position		      [0, 485, 40, 505]
+      Value		      "24.644"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV4"
+      Position		      [45, 498, 80, 522]
+      Value		      "61.302"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV5"
+      Position		      [0, 525, 40, 545]
+      Value		      "22.210"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV6"
+      Position		      [45, 539, 80, 561]
+      Value		      "40.064"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV7"
+      Position		      [0, 564, 40, 586]
+      Value		      "38.100"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV8"
+      Position		      [45, 579, 80, 601]
+      Value		      "46.534"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XMV9"
+      Position		      [0, 604, 40, 626]
+      Value		      "47.446"
+    }
+    Line {
+      SrcBlock		      "IDV1"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "IDV2"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "IDV3"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "IDV4"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "IDV5"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "IDV6"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      6
+    }
+    Line {
+      SrcBlock		      "IDV7"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      7
+    }
+    Line {
+      SrcBlock		      "IDV8"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      8
+    }
+    Line {
+      SrcBlock		      "IDV9"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      9
+    }
+    Line {
+      SrcBlock		      "IDV10"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      10
+    }
+    Line {
+      SrcBlock		      "IDV11"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      11
+    }
+    Line {
+      SrcBlock		      "IDV12"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      12
+    }
+    Line {
+      SrcBlock		      "IDV13"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      13
+    }
+    Line {
+      SrcBlock		      "IDV14"
+      SrcPort		      1
+      DstBlock		      "IDV"
+      DstPort		      14
+    }
+    Line {
+      SrcBlock		      "IDV15"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      15
+    }
+    Line {
+      SrcBlock		      "IDV16"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      16
+    }
+    Line {
+      SrcBlock		      "IDV17"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      17
+    }
+    Line {
+      SrcBlock		      "IDV18"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      18
+    }
+    Line {
+      SrcBlock		      "IDV19"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "IDV"
+      DstPort		      19
+    }
+    Line {
+      SrcBlock		      "IDV20"
+      SrcPort		      1
+      Points		      [10, 0]
+      DstBlock		      "IDV"
+      DstPort		      20
+    }
+    Line {
+      SrcBlock		      "XMV1"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMV2"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "XMV3"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "XMV4"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "XMV5"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "XMV6"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      6
+    }
+    Line {
+      SrcBlock		      "XMV7"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      7
+    }
+    Line {
+      SrcBlock		      "XMV8"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      8
+    }
+    Line {
+      SrcBlock		      "XMV9"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      9
+    }
+    Line {
+      SrcBlock		      "XMV10"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      10
+    }
+    Line {
+      SrcBlock		      "XMV11"
+      SrcPort		      1
+      DstBlock		      "XMV"
+      DstPort		      11
+    }
+    Line {
+      SrcBlock		      "XMV12"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "XMV"
+      DstPort		      12
+    }
+    Line {
+      SrcBlock		      "IDV"
+      SrcPort		      1
+      Points		      [25, 0]
+      DstBlock		      "Mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMV"
+      SrcPort		      1
+      Points		      [15, 0]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "S-Function"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      1
+      Points		      [70, 0]
+      DstBlock		      "Terminator1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      2
+      Points		      [140, 0]
+      DstBlock		      "Terminator2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      3
+      Points		      [220, 0]
+      DstBlock		      "Terminator3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      4
+      Points		      [290, 0]
+      DstBlock		      "Terminator4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      5
+      Points		      [70, 0]
+      DstBlock		      "Terminator5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      6
+      Points		      [60, 0]
+      DstBlock		      "XMEAS 6 Rx Feed"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      7
+      Points		      [60, 0]
+      DstBlock		      "XMEAS 7 Rx Press"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      8
+      Points		      [60, 0]
+      DstBlock		      "XMEAS 8 Rx Level"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      9
+      Points		      [60, 0]
+      DstBlock		      "XMEAS 9 Reac Temp"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      10
+      Points		      [0, -325; 275, 0]
+      DstBlock		      "XMEAS 10 Purge Rate"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      11
+      Points		      [0, -330; 275, 0]
+      DstBlock		      "XMEAS 11 Prod Sep Temp"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      12
+      Points		      [0, -335; 275, 0]
+      DstBlock		      "XMEAS 12 Prod Sep Level"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      13
+      Points		      [140, 0]
+      DstBlock		      "Terminator13"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      14
+      Points		      [220, 0]
+      DstBlock		      "Terminator14"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      15
+      Points		      [290, 0]
+      DstBlock		      "Terminator15"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      16
+      Points		      [70, 0]
+      DstBlock		      "Terminator16"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      17
+      Points		      [0, -10; 140, 0]
+      DstBlock		      "Terminator17"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      18
+      Points		      [0, -365; 275, 0]
+      DstBlock		      "XMEAS 18 Stripper Temp"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      19
+      Points		      [0, -20; 220, 0]
+      DstBlock		      "Terminator19"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      20
+      Points		      [0, -25; 290, 0]
+      DstBlock		      "Terminator20"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      21
+      Points		      [0, 5; 70, 0]
+      DstBlock		      "Terminator21"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      22
+      Points		      [140, 0]
+      DstBlock		      "Terminator22"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      23
+      Points		      [0, -5; 220, 0]
+      DstBlock		      "Terminator23"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      24
+      Points		      [0, -10; 290, 0]
+      DstBlock		      "Terminator24"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      25
+      Points		      [10, 0; 0, 10; 60, 0]
+      DstBlock		      "Terminator25"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      26
+      Points		      [25, 0; 0, 10; 115, 0]
+      DstBlock		      "Terminator26"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      27
+      Points		      [35, 0; 0, 10; 185, 0]
+      DstBlock		      "Terminator27"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      28
+      Points		      [35, 0; 0, 5; 255, 0]
+      DstBlock		      "Terminator28"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      29
+      Points		      [25, 0; 0, 50]
+      DstBlock		      "Terminator29"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      30
+      Points		      [140, 0]
+      DstBlock		      "Terminator30"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      31
+      Points		      [220, 0]
+      DstBlock		      "Terminator31"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      32
+      Points		      [285, 0; 0, 35]
+      DstBlock		      "Terminator32"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      33
+      Points		      [70, 0]
+      DstBlock		      "Terminator33"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      34
+      Points		      [140, 0]
+      DstBlock		      "Terminator34"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      35
+      Points		      [220, 0]
+      DstBlock		      "Terminator35"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      36
+      Points		      [290, 0]
+      DstBlock		      "Terminator36"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      37
+      Points		      [70, 0]
+      DstBlock		      "Terminator37"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      38
+      Points		      [140, 0]
+      DstBlock		      "Terminator38"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      39
+      Points		      [220, 0]
+      DstBlock		      "Terminator39"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      40
+      Points		      [290, 0]
+      DstBlock		      "Terminator40"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "XMEAS"
+      SrcPort		      41
+      Points		      [70, 0]
+      DstBlock		      "Terminator41"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "S-Function"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	DstBlock		"XMEAS"
+	DstPort			1
+      }
+      Branch {
+	Points			[-5, 0; 0, -115; -45, 0]
+	DstBlock		"To Workspace"
+	DstPort			1
+      }
+    }
+  }
+}
