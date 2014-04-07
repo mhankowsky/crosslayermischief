@@ -44,8 +44,8 @@ classdef OMNeTPipe
             
             % Set up message primatives
             obj.msgBegin = char(1);
-            obj.msgFieldSep = char(30);
-            obj.msgIntSep = char(31);
+            obj.msgFieldSep = char(24);
+            obj.msgIntSep = char(25);
             obj.msgEnd = char(4);
             
             % Set up type primatives
@@ -67,7 +67,7 @@ classdef OMNeTPipe
 
             % Check length
             if (mod(length(varargin{1}), 3) ~= 0)
-                return
+                return;
             end
             
             % Process args
@@ -190,7 +190,6 @@ classdef OMNeTPipe
                 pk = strcat(pk, char(pkChar));
             end
             
-            disp(pk)
             [h, v] = parsePk(obj, pk);            
         end
     

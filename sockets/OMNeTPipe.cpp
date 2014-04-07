@@ -8,6 +8,10 @@
  */
 
 #include "OMNeTPipe.hpp"
+#include <iostream>
+using std::cout;
+using std::cerr;
+using std::endl;
 #include <stdio.h>
  
 /* Constructor */
@@ -16,7 +20,7 @@ OMNeTPipe::OMNeTPipe(char* host, int port) {
 	char c;
 	string sHost(host);
 	sk = new TCPSocket(sHost, port);
-	
+
 	/* Read synchronizing byte */
 	sk->recv(&c, 1);
  }
@@ -43,7 +47,7 @@ int OMNeTPipe::sendPk(OMNeTPk pk) {
 	char buf[MAX_PK_SIZE];
 	
 	/* Form header */
-	sprintf(pk_str, "%c%s%c", MSG_BEGIN, pk.getHeader(), MSG_FIELDSEP);
+	sprintf(pk_str, "%c%s", MSG_BEGIN, pk.getHeader());
 	
 	/* Form packet string */
 	for (i = 0; i < pk.getSize(); i++) {
@@ -144,6 +148,7 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 		}
 	} while (c != MSG_END);
 	
+	cout << pk_str << endl;
 	/* Process the string */
 	
 	/* Parse out the header */
@@ -158,6 +163,7 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 		i++;
 	} while (pk_str[i] != MSG_FIELDSEP);
 	i++;
+	cout << "HEAD: '" << buf << "' Size: " << num_fields << endl;
 	
 	/* Create a new packet */
 	OMNeTPk* pk = new OMNeTPk(buf);
@@ -170,12 +176,12 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 		do {
 			buf[s] = pk_str[i];
 			buf[s+1] = '\0';
-		
+
 			s++;
 			i++;
-		} while ((pk_str[i] != MSG_FIELDSEP) || (pk_str[i] != MSG_END));
+		} while ((pk_str[i] != MSG_FIELDSEP) && (pk_str[i] != MSG_END));
 		i++;
-		
+
 		/* Parse the buffer */
 		
 		/* Fill in the name */

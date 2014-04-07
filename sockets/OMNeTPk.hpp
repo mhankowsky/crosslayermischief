@@ -20,6 +20,10 @@ using std::vector;
 #define TYPE_FLOAT    1
 #define TYPE_DOUBLE   2
 #define TYPE_STR      3
+
+/* Provide way to cast float to void* for addVal */
+#define FLOAT(x) ((void*)(((unsigned short*)(&(x)))[0] |				\
+						  (((unsigned int)((unsigned short*)(&(x)))[1]) << 16)))
  
 class OMNeTPk {
  
