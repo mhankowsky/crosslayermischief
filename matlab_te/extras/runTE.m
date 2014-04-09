@@ -80,13 +80,22 @@ N_d_new = N_d + dN_d * dt;
 % Update x_i state
 % For 1-3
 % t_v(dx_i/dt) + x_i - u_i = 0
-x_1_new = x_1;
-x_2_new = x_2;
-x_3_new = x_3;
+dx_1 = ((u_i - x_i) / t_v)
+dx_2 = ((u_i - x_i) / t_v)
+dx_3 = ((u_i - x_i) / t_v)
+
+
+x_1_new = x_1 + dx_1 * dt;
+x_2_new = x_2 + dx_2 * dt;
+x_3_new = x_3 + dx_3 * dt;
 
 % For 4
 % t_v (dx_4/dt)+x_4 - [bar_x_4 + K_c(u_4-y_6) = 0
-x_4_new = x_4;
+bar_x_4 = x_4;
+
+dx_4 = ((bar_x_4 + K_c(u_4 - y_6)) - x_4) / t_v
+
+x_4_new = x_4 + dx_4 * dt;
 
 % Setup outputs
 y = [F_1, F_2, F_3, F_4, P, V_L, y_a3, y_b3, y_c3, C];
