@@ -1,6 +1,9 @@
 classdef SimpleTE
-    %TECLASS Summary of this class goes here
-    %   Detailed explanation goes here
+    %TECLASS Simplified Tennessee Eastman Problem
+    %   The system takes in three vectors
+    %   The Input vector u which decides the valve positions
+    %   The State vector x which decides the current state
+    %   The Time vector which decides the time elapsed
     
     properties
         %% State variables
