@@ -7,19 +7,41 @@ using std::endl;
 
 int main(int argc, char **argv) {
   cout << "Starting up..." << endl;
-  OMNeTPipe* pipe = new OMNeTPipe("localhost", atoi(argv[1]));
+  OMNeTPipe* pipeC = new OMNeTPipe("localhost", 18100);
+  OMNeTPipe* pipeA = new OMNeTPipe("localhost", 18240);
   OMNeTPk* pk;
-  
+  OMNeTPk up ("UPDATE");
+  int p;
+  float f = 1.0;
+
   cout << "Connected!" << endl;
+
+  up.addVal("id", (void*)1, TYPE_INT);
+  up.addVal("dt", FLOAT(f), TYPE_FLOAT);
+
+  pipeC->sendPk(up);
+
+  p = fork();
 
   /* Sit on the pipe and pass through whatever pk you get */
   while (1)
   {
-	cout << "Getting packet..." << endl;
-	pk = pipe->recvPk();
-	cout << "Packet received (" << pk->getHeader() << ")" << endl;
-	pipe->sendPk(*pk);
-	cout << "Packet sent!" << endl;
+	if (p == 0)
+	  {
+		cout << "(C) Getting packet..." << endl;
+		pk = pipeC->recvPk();
+		cout << "(C) Packet received (" << pk->getHeader() << ")" << endl;
+		pipeA->sendPk(*pk);
+		cout << "(A) Packet sent!" << endl;
+	  }
+	else
+	  {
+		cout << "(A) Getting packet..." << endl;
+		pk = pipeA->recvPk();
+		cout << "(A) Packet received (" << pk->getHeader() << ")" << endl;
+		pipeC->sendPk(*pk);
+		cout << "(C) Packet sent!" << endl;
+	  }	
   }
 
   return 0;
