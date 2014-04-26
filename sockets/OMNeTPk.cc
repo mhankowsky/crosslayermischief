@@ -7,7 +7,7 @@
  *
  */
  
-#include "OMNeTPk.hpp"
+#include "OMNeTPk.h"
  
 /* Constructor */
 OMNeTPk::OMNeTPk(char* h) {
