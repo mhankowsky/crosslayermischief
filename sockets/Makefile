@@ -16,14 +16,14 @@ EXENAME=pipes_test
 # Compile targets
 all: $(OBJS)
 	g++ $(FLAGS) $(OBJS) -lz -o $(EXENAME)
-OMNeTPk.o: OMNeTPk.cpp OMNeTPk.hpp
-	g++ $(FLAGS) -c OMNeTPk.cpp
+OMNeTPk.o: OMNeTPk.cc OMNeTPk.h
+	g++ $(FLAGS) -c OMNeTPk.cc
 main.o: main.cpp
 	g++ $(FLAGS) -c main.cpp
-OMNeTPipe.o: OMNeTPipe.cpp OMNeTPipe.hpp
-	g++ $(FLAGS) -c OMNeTPipe.cpp
-Sockets.o: Sockets.cpp Sockets.hpp
-	g++ $(FLAGS) -c Sockets.cpp
+OMNeTPipe.o: OMNeTPipe.cc OMNeTPipe.h
+	g++ $(FLAGS) -c OMNeTPipe.cc
+Sockets.o: Sockets.cc Sockets.h
+	g++ $(FLAGS) -c Sockets.cc
 # Add more compilation targets here
 
 

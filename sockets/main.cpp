@@ -2,31 +2,25 @@
 using std::cout;
 using std::cerr;
 using std::endl;
-#include "OMNeTPk.hpp"
-#include "OMNeTPipe.hpp"
+#include "OMNeTPk.h"
+#include "OMNeTPipe.h"
 
 int main(int argc, char **argv) {
   cout << "Starting up..." << endl;
-  OMNeTPipe* p = new OMNeTPipe("localhost", 18637);
+  OMNeTPipe* pipe = new OMNeTPipe("localhost", atoi(argv[1]));
+  OMNeTPk* pk;
+  
+  cout << "Connected!" << endl;
 
-  OMNeTPk* pk = new OMNeTPk("HEAD");
-  OMNeTPk* rpk;
-
-  float x = 1.2;
-
-  // Add a value to the packet
-  pk->addVal("v", (void*) 3, TYPE_INT);
-  pk->addVal("GGG", FLOAT(x), TYPE_FLOAT);
-
-  cout << "Hi!" << endl;
-  p->sendPk(*pk);
-
-  cout << "sent!" << endl;
-  rpk = p->recvPk();
-
-  cout << "H: '" << rpk->getHeader() << "' Size: " << rpk->getSize() << endl;
-
-  cout << "got it!" << endl;
+  /* Sit on the pipe and pass through whatever pk you get */
+  while (1)
+  {
+	cout << "Getting packet..." << endl;
+	pk = pipe->recvPk();
+	cout << "Packet received (" << pk->getHeader() << ")" << endl;
+	pipe->sendPk(*pk);
+	cout << "Packet sent!" << endl;
+  }
 
   return 0;
 }

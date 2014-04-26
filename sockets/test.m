@@ -3,13 +3,13 @@ function [ ] = test( )
 disp('Starting test, connecting....')
 o = OMNeTPipe();
 disp('Connected')
-while (TRUE)
+while (1 == 1)
     disp(' Reading new packet')
-    [h, v] = o.rcvPk(o);
+    [h, v] = recvPk(o);
     disp(' Packet received:')
     dips(h)
     disp(v('t'))
-end    
+end   
 
 end
 

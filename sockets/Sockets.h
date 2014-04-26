@@ -187,13 +187,13 @@ protected:
 /**
  *   TCP socket for communication with other TCP sockets
  */
-class TCPSocket : public CommunicatingSocket {
+class TCPSocketReal : public CommunicatingSocket {
 public:
   /**
    *   Construct a TCP socket with no connection
    *   @exception SocketException thrown if unable to create TCP socket
    */
-  TCPSocket() throw(SocketException);
+  TCPSocketReal() throw(SocketException);
 
   /**
    *   Construct a TCP socket with a connection to the given foreign address
@@ -202,13 +202,13 @@ public:
    *   @param foreignPort foreign port
    *   @exception SocketException thrown if unable to create TCP socket
    */
-  TCPSocket(const string &foreignAddress, unsigned short foreignPort) 
+  TCPSocketReal(const string &foreignAddress, unsigned short foreignPort) 
       throw(SocketException);
 
 private:
   // Access for TCPServerSocket::accept() connection creation
   friend class TCPServerSocket;
-  TCPSocket(int newConnSD);
+  TCPSocketReal(int newConnSD);
 };
 
 /**
@@ -245,7 +245,7 @@ public:
    *   @return new connection socket
    *   @exception SocketException thrown if attempt to accept a new connection fails
    */
-  TCPSocket *accept() throw(SocketException);
+  TCPSocketReal *accept() throw(SocketException);
 
 private:
   void setListen(int queueLen) throw(SocketException);
@@ -254,20 +254,20 @@ private:
 /**
   *   UDP socket class
   */
-class UDPSocket : public CommunicatingSocket {
+class UDPSocketReal : public CommunicatingSocket {
 public:
   /**
    *   Construct a UDP socket
    *   @exception SocketException thrown if unable to create UDP socket
    */
-  UDPSocket() throw(SocketException);
+  UDPSocketReal() throw(SocketException);
 
   /**
    *   Construct a UDP socket with the given local port
    *   @param localPort local port
    *   @exception SocketException thrown if unable to create UDP socket
    */
-  UDPSocket(unsigned short localPort) throw(SocketException);
+  UDPSocketReal(unsigned short localPort) throw(SocketException);
 
   /**
    *   Construct a UDP socket with the given local port and address
@@ -275,7 +275,7 @@ public:
    *   @param localPort local port
    *   @exception SocketException thrown if unable to create UDP socket
    */
-  UDPSocket(const string &localAddress, unsigned short localPort) 
+  UDPSocketReal(const string &localAddress, unsigned short localPort) 
       throw(SocketException);
 
   /**

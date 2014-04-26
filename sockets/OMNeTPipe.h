@@ -27,7 +27,7 @@ using std::string;
 class OMNeTPipe {
 
 private:
-	TCPSocket* sk;
+	TCPSocketReal* sk;
 	
 public:
 	OMNeTPipe(char* host, int port);
