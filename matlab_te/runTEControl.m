@@ -42,11 +42,11 @@ while (1 == 1)
         u = updateControls(curControl, y, dt);
         
         % Send a packet containing the new input controls
-        sendPk(pipe, 'CH_ACK', id, pipe.typeInt, 'id', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
     % Get the inputs given the previous information
     elseif (STRCMP(header, 'UPDATE'))
         u = updateControls(curControl, getLastInputsFromController(curControl), dt);
-        sendPk(pipe, 'UP_ACK', id, pipe.typeInt, 'id', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        sendPk(pipe, 'UPDATE', id, pipe.typeInt, 'id', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
     end
     
 end
