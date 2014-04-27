@@ -15,7 +15,69 @@ classdef SimpleControl
         y_old;
     end
     methods (Static)
-        function [x,VL]=te_4_ss()
+         %% Constructor
+        function obj = SimpleControl()
+            % Constants
+            KcPC   = 0.7;
+            TauiPC = 3;
+            tauis  = [1.0, 1.5, 3.0];  % integral times
+            Kcs    = [.1, -.25, 2.0];  % gains
+            iydisp = [4:9];            % indeces of displayed outputs
+            icv    = [4,5,7];          % indeces of controlled outputs
+            imv    = [1,3,2];          % indeces of manipulated inputs
+            
+            
+            % Initial output vector
+            nom_F_1 = 201.43;
+            nom_F_2 = 5.62;
+            nom_F_3 = 7.05;
+            nom_F_4 = 100.00;
+            nom_P = 2700.00;
+            nom_V_L = 44.18;
+            nom_y_a3 = 47.00;
+            nom_y_b3 = 14.29;
+            nom_y_c3 = 38.71;
+            nom_C = 0.2415;
+            
+            y0(1)  = nom_F_1;
+            y0(2)  = nom_F_2;
+            y0(3)  = nom_F_3;
+            y0(4)  = nom_F_4;
+            y0(5)  = nom_P;
+            y0(6)  = nom_V_L;
+            y0(7)  = nom_y_a3;
+            y0(8)  = nom_y_b3;
+            y0(9)  = nom_y_c3;
+            y0(10) = nom_C;
+            obj.y_old = y0;
+            
+            % Initialize nominal values
+            % Define parameters for the basic control loops:
+
+            iydisp = [4:9];            % indeces of displayed outputs
+            icv    = [4,5,7];          % indeces of controlled outputs
+            imv    = [1,3,2];          % indeces of manipulated inputs
+            obj.setpts = y0(icv);     % setpoint are initialized to measurements
+            obj.errn1 = zeros(1, length(Kcs));  % initialize integral errors to zero
+
+            % similarly for pressure override loop
+            obj.errn1PC  = 0;
+            obj.F4sp_adj = 0;
+            obj.F4sp     = [];
+            
+            % Initialize up
+            [x0, VL] = SimpleControl.TESteadyState();
+            VLpct = VL * 100 / 30;
+            u0 = [];
+            u0(1:3, 1) = x0(5:7, :);
+            u0(4) = VLpct;
+            obj.up = u0;
+            
+        end
+        
+        
+        
+        function [x,VL]=TESteadyState()
 
             % [x,VL]=te_4_ss(ya3,F4,P,p1)
             %
@@ -86,56 +148,7 @@ classdef SimpleControl
         end    
     end
     methods
-        %% Constructor
-        function obj = SimpleController()
-            
-            % Initial output vector
-            nom_F_1 = 201.43;
-            nom_F_2 = 5.62;
-            nom_F_3 = 7.05;
-            nom_F_4 = 100.00;
-            nom_P = 2700.00;
-            nom_V_L = 44.18;
-            nom_y_a3 = 47.00;
-            nom_y_b3 = 14.29;
-            nom_y_c3 = 38.71;
-            nom_C = 0.2415;
-            
-            y0(1)  = nom_F_1;
-            y0(2)  = nom_F_2;
-            y0(3)  = nom_F_3;
-            y0(4)  = nom_F_4;
-            y0(5)  = nom_P;
-            y0(6)  = nom_V_L;
-            y0(7)  = nom_y_a3;
-            y0(8)  = nom_y_b3;
-            y0(9)  = nom_y_c3;
-            y0(10) = nom_C;
-            obj.y_old = y0;
-            
-            % Initialize nominal values
-            % Define parameters for the basic control loops:
-
-            iydisp = [4:9];            % indeces of displayed outputs
-            icv    = [4,5,7];          % indeces of controlled outputs
-            imv    = [1,3,2];          % indeces of manipulated inputs
-            obj.setpts = y0(icv)';     % setpoint are initialized to measurements
-            obj.errn1 = zeros(1, length(Kcs));  % initialize integral errors to zero
-
-            % similarly for pressure override loop
-            obj.errn1PC  = 0;
-            obj.F4sp_adj = 0;
-            obj.F4sp     = [];
-            
-            % Initialize up
-            [x0, VL] = te_4_ss();
-            VLpct = VL * 100 / 30;
-            u0 = [];
-            u0(1:3, 1) = x0(5:7, :);
-            u0(4) = VLpct;
-            obj.up = u0;
-        end
-        
+       
 
         %% Run a simple controller that looks at outputs to find inputs
         %  This takes in the controller object, as well as the output
@@ -180,11 +193,12 @@ classdef SimpleControl
             obj.errn1PC   = errnPC;
             setpts_save   = obj.setpts;
             obj.setpts(1) = obj.setpts(1) + obj.F4sp_adj;
-            
+            obj.setpts
+        
             % PI control
-            errn               = obj.setpts - yp(obj.icv);
+            errn               = obj.setpts - yp(icv);
             delu               = Kcs .* (errn - obj.errn1 + (dt * errn) ./ tauis);
-            obj.up(obj.imv, 1) = obj.up(obj.imv, 1) + delu(1:3)';
+            obj.up(imv, 1)     = obj.up(imv, 1) + delu(1:3)';
             obj.errn1          = errn;
             obj.up(imv, 1)     = min([max([obj.up(imv, 1)'; zeros(1, 3)]); 100 * ones(1, 3)])';
            

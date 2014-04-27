@@ -238,7 +238,7 @@ classdef SimpleTE
 
         
         %% Run an interation of tennesee eastman
-        function [ obj ] = runIteration( obj, u , dt)
+        function [ y ] = runIteration( obj, u , dt)
             % Convert inputs to something useful
             obj.u_1 = u(1);
             obj.u_2 = u(2);
@@ -337,10 +337,10 @@ classdef SimpleTE
   
             %% Finish up state and outputs
             % Setup outputs
-            obj.y = [obj.F_1, obj.F_2, obj.F_3, obj.F_4, obj.P, obj.V_L, obj.y_a3, obj.y_b3, obj.y_c3, obj.C];
+            y = [obj.F_1, obj.F_2, obj.F_3, obj.F_4, obj.P, obj.V_L, obj.y_a3, obj.y_b3, obj.y_c3, obj.C];
 
             % Setup new state
-            obj.x_new = [N_a_new, N_b_new, N_c_new, N_d_new, X_1_new, X_2_new, X_3_new, X_4_new];
+            x_new = [N_a_new, N_b_new, N_c_new, N_d_new, X_1_new, X_2_new, X_3_new, X_4_new];
             
             obj.N_a = N_a_new;
             obj.N_b = N_b_new;

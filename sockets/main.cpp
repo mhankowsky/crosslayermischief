@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
 		cout << "(C) Getting packet..." << endl;
 		pk = pipeC->recvPk();
 		cout << "(C) Packet received (" << pk->getHeader() << ")" << endl;
+    sleep(1);
 		pipeA->sendPk(*pk);
 		cout << "(A) Packet sent!" << endl;
 	  }
@@ -39,6 +40,7 @@ int main(int argc, char **argv) {
 		cout << "(A) Getting packet..." << endl;
 		pk = pipeA->recvPk();
 		cout << "(A) Packet received (" << pk->getHeader() << ")" << endl;
+    sleep(1);
 		pipeC->sendPk(*pk);
 		cout << "(C) Packet sent!" << endl;
 	  }	
