@@ -134,21 +134,28 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 	void* v;
 	float f;
 	int num_fields;
+	int getting_msg;
 	
 	/* Read out the string from the socket */
 	num_fields = 0;
+	getting_msg = 0;
 	do {
 		sk->recv(&c, 1);
 		
-		s = strlen(pk_str);
-		pk_str[s] = c;
-		pk_str[s+1] = '\0';
-		
-		/* Count the number of items in the packet */
-		if (c == MSG_FIELDSEP) {
-			num_fields++;
+		if (c == MSG_BEGIN) {
+			getting_msg = 1;
 		}
-	} while (c != MSG_END);
+		else if (getting_msg) {
+			s = strlen(pk_str);
+			pk_str[s] = c;
+			pk_str[s+1] = '\0';
+		
+			/* Count the number of items in the packet */
+			if (c == MSG_FIELDSEP) {
+				num_fields++;
+			}
+		}
+	} while ((c != MSG_END) && getting_msg);
 	
 	cout << pk_str << endl;
 	/* Process the string */
@@ -156,7 +163,7 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 	/* Parse out the header */
 	buf[0] = '\0';
 	s = 0;
-	i = 1;
+	i = 0;
 	do {
 		buf[s] = pk_str[i];
 		buf[s+1] = '\0';
