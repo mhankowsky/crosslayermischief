@@ -136,6 +136,9 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 	int num_fields;
 	int getting_msg;
 	
+  /* Clear out pk_str */
+  pk_str[0] = '\0';
+
 	/* Read out the string from the socket */
 	num_fields = 0;
 	getting_msg = 0;
