@@ -25,3 +25,35 @@
         % Runs an iteration this takes in the TE object along with the new
         % inputs and a change in time
         function [ obj ] = runIteration( obj, u , dt)
+
+   =========VARIABLE LIST========
+        %% INPUTS (Actuators) %%
+        % Desired positions of valves
+        % Changes X_1-4
+        u_1;
+        u_2;
+        u_3;
+        u_4;
+        
+        %% OUTPUTS (Sensors) %%
+        % In kmol h^-1
+        % Feed 1-4 flow measurement
+        F_1;
+        F_2;
+        % Purge flow measurement
+        F_3;
+        % Product flow measurement
+        F_4;
+        
+        % Pressure
+        P;
+        
+        % Liquid inventory % volume of system is liquid
+        V_L;
+        % percent Amount of A-C in purge
+        y_a3;
+        y_b3;
+        y_c3;
+        % Instantaneous cost
+        C;
+ 

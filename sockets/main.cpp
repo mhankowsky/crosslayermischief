@@ -10,16 +10,16 @@ int main(int argc, char **argv) {
   OMNeTPipe* pipeC = new OMNeTPipe("localhost", 18100);
   OMNeTPipe* pipeA = new OMNeTPipe("localhost", 18240);
   OMNeTPk* pk;
-  OMNeTPk up ("UPDATE");
+  OMNeTPk up ("SYS_UPDATE");
   int p;
-  float f = 1.0;
+  float f = 100.0;
 
   cout << "Connected!" << endl;
 
   up.addVal("id", (void*)1, TYPE_INT);
   up.addVal("dt", FLOAT(f), TYPE_FLOAT);
 
-  pipeC->sendPk(up);
+  pipeA->sendPk(up);
 
   p = fork();
 

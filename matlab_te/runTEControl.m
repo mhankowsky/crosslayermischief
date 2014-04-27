@@ -21,34 +21,37 @@ while (i <= numControl)
     control(i) = SimpleControl();
     i = i + 1;
 end
+host = 'localhost';
 port = 18100;
 
 %% Startup pipe on port 18100
-pipe = OMNeTPipe(18100);
+pipe = OMNeTPipe(host, port);
 
 
 %% Recieve and iterate on packets
 while (1 == 1)
     [header, pkMap] = recvPk(pipe);
-    ischar(header)
     id = pkMap('id');
     dt = pkMap('dt');
     curControl = control(id);
     % Do a change of inputs and outputs
-    
-    if (strcmp(header, 'CHANGE'))      
+    if (strcmp(header, 'CON_CHANGE'))      
         % Update the controls
         y = [pkMap('F_1'), pkMap('F_2'), pkMap('F_3'), pkMap('F_4'), pkMap('P'), pkMap('V_L'), pkMap('y_a3'), pkMap('y_b3'), pkMap('y_c3'), pkMap('C')];
-        u = updateControls(curControl, y, dt);
-        u
+        newCurControl = updateControls(curControl, y, dt);
+        u = getInputsFromController(newCurControl);
+        control(id) = newCurControl;
+
         % Send a packet containing the new input controls
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id',  single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        sendPk(pipe, 'SYS_CHANGE', id, pipe.typeInt, 'id',  single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
     % Get the inputs given the previous information
-    elseif (strcmp(header, 'UPDATE'))
+    elseif (strcmp(header, 'CON_UPDATE'))
         y = getLastInputsFromController(curControl);
-        u = updateControls(curControl, y, dt);
-        u
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        newCurControl = updateControls(curControl, y, dt);
+        u = getInputsFromController(newCurControl);
+        control(id) = newCurControl;
+        
+        sendPk(pipe, 'SYS_CHANGE', id, pipe.typeInt, 'id', single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
     end
     
 end

@@ -162,7 +162,7 @@ classdef SimpleControl
         % Box 351750
         % Seattle, WA 98195-1750
         % ricker@cheme.washington.edu
-        function [ u ] = updateControls(obj, y, dt)
+        function [ new_obj ] = updateControls(obj, y, dt)
             %F_1  = y(1);
             %F_2  = y(2);
             %F_3  = y(3);
@@ -193,7 +193,6 @@ classdef SimpleControl
             obj.errn1PC   = errnPC;
             setpts_save   = obj.setpts;
             obj.setpts(1) = obj.setpts(1) + obj.F4sp_adj;
-            obj.setpts
         
             % PI control
             errn               = obj.setpts - yp(icv);
@@ -210,6 +209,7 @@ classdef SimpleControl
             
             % Set inputs at end (to TE)
             u = obj.up;
+            new_obj = obj;
         end
         
         function [ u ] = getInputsFromController(obj)

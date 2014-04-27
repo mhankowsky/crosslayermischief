@@ -187,10 +187,14 @@ classdef SimpleTE
             obj.X_4 = obj.nom_X_4;
             
             % Initialize inputs
-            obj.u_1 = obj.nom_u_1;
-            obj.u_2 = obj.nom_u_2;
-            obj.u_3 = obj.nom_u_3;
-            obj.u_4 = obj.nom_u_4;
+            obj.u_1 = 100;
+            obj.u_2 = 0;
+            obj.u_3 = 0;
+            obj.u_4 = 100;
+            %obj.u_1 = obj.nom_u_1;
+            %obj.u_2 = obj.nom_u_2;
+            %obj.u_3 = obj.nom_u_3;
+            %obj.u_4 = obj.nom_u_4;
             
             % Initialize outputs
             obj.F_1  = obj.nom_F_1;
@@ -238,7 +242,7 @@ classdef SimpleTE
 
         
         %% Run an interation of tennesee eastman
-        function [ y ] = runIteration( obj, u , dt)
+        function [ new_obj ] = runIteration( obj, u, dt)
             % Convert inputs to something useful
             obj.u_1 = u(1);
             obj.u_2 = u(2);
@@ -338,7 +342,7 @@ classdef SimpleTE
             %% Finish up state and outputs
             % Setup outputs
             y = [obj.F_1, obj.F_2, obj.F_3, obj.F_4, obj.P, obj.V_L, obj.y_a3, obj.y_b3, obj.y_c3, obj.C];
-
+            y
             % Setup new state
             x_new = [N_a_new, N_b_new, N_c_new, N_d_new, X_1_new, X_2_new, X_3_new, X_4_new];
             
@@ -350,6 +354,7 @@ classdef SimpleTE
             obj.X_2 = X_2_new;
             obj.X_3 = X_3_new;
             obj.X_4 = X_4_new;
+            new_obj = obj;
         end
 
 
