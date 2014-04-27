@@ -155,7 +155,7 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 				num_fields++;
 			}
 		}
-	} while ((c != MSG_END) && getting_msg);
+	} while ((c != MSG_END) || !getting_msg);
 	
 	cout << pk_str << endl;
 	/* Process the string */
