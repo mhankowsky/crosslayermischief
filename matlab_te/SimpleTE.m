@@ -211,8 +211,10 @@ classdef SimpleTE
             % Initialize bar_X_4
             obj.sum_X_4 = obj.nom_X_4;
             obj.trials = 1;
-            obj.bar_X_4 = obj.sum_X_4 / obj.trials;
-  
+            %obj.bar_X_4 = obj.sum_X_4 / obj.trials;
+            obj.bar_X_4 = 47.03024823457651
+            [x0, VL] = SimpleControl.TESteadyState();
+            obj.bar_X_4 = x0(8);
         end
         
         %% Accessor functions
@@ -337,7 +339,7 @@ classdef SimpleTE
             
             obj.trials = obj.trials + 1;
             obj.sum_X_4 = obj.sum_X_4 + obj.X_4;
-            obj.bar_X_4 = obj.sum_X_4 / obj.trials;
+            %obj.bar_X_4 = obj.sum_X_4 / obj.trials;
   
             %% Finish up state and outputs
             % Setup outputs

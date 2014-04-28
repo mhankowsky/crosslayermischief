@@ -21,8 +21,6 @@ classdef OMNeTPipe
     methods
         % Constructor
         function obj = OMNeTPipe( host, port )
-            host
-            port
             % Set up connection
             obj.serverConn = tcpip(host, port, 'NetworkRole', 'server');
             set(obj.serverConn, 'InputBufferSize', 4096);
@@ -178,7 +176,7 @@ classdef OMNeTPipe
                 pk = strcat(pk, char(pkChar));
             end
             
-            [h, v] = parsePk(obj, pk);            
+            [h, v] = parsePk(obj, pk);           
         end
     
     end
