@@ -13,6 +13,7 @@ classdef SimpleControl
         F4sp;
         up;
         y_old;
+        trials;
     end
     methods (Static)
          %% Constructor
@@ -26,6 +27,8 @@ classdef SimpleControl
             icv    = [4,5,7];          % indeces of controlled outputs
             imv    = [1,3,2];          % indeces of manipulated inputs
             
+            % Count
+            obj.trials = 0;
             
             % Initial output vector
             nom_F_1 = 201.43;
@@ -162,7 +165,7 @@ classdef SimpleControl
         % Box 351750
         % Seattle, WA 98195-1750
         % ricker@cheme.washington.edu
-        function [ u ] = updateControls(obj, y, dt)
+        function [ new_obj ] = updateControls(obj, y, dt)
             %F_1  = y(1);
             %F_2  = y(2);
             %F_3  = y(3);
@@ -193,7 +196,6 @@ classdef SimpleControl
             obj.errn1PC   = errnPC;
             setpts_save   = obj.setpts;
             obj.setpts(1) = obj.setpts(1) + obj.F4sp_adj;
-            obj.setpts
         
             % PI control
             errn               = obj.setpts - yp(icv);
@@ -206,17 +208,21 @@ classdef SimpleControl
             obj.setpts = setpts_save;
             
             % Save the outputs that were inputted
-            obj.y_old = y;
+            obj.y_old = y
             
             % Set inputs at end (to TE)
             u = obj.up;
+            new_obj = obj;
+
+            % Update count
+            obj.trials = obj.trials + 1;
         end
         
         function [ u ] = getInputsFromController(obj)
             u = obj.up;
         end
         
-        function [ y ] = getLastInputsFromController(obj)
+        function [ y ] = getLastOutputsFromController(obj)
             y = obj.y_old;
         end
 

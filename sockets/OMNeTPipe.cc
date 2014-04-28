@@ -53,8 +53,6 @@ int OMNeTPipe::sendPk(OMNeTPk pk) {
 	for (i = 0; i < pk.getSize(); i++) {
 		/* Add an element */
 		t = pk.getType(pk.getName(i));
-		
-	  printf("TYPE %d, %s\n", t, pk.getName(i));
 		switch (t) {
 			case TYPE_INT:
 				x = reinterpret_cast<int>(pk.getVal(pk.getName(i)));
@@ -65,7 +63,6 @@ int OMNeTPipe::sendPk(OMNeTPk pk) {
 				x,
 				MSG_INTSEP,
 				t);
-	      printf("%d, %s\n", i, pk.getName(i));
 				break;
 			case TYPE_FLOAT:
 				v = pk.getVal(pk.getName(i));
@@ -77,7 +74,6 @@ int OMNeTPipe::sendPk(OMNeTPk pk) {
 				f,
 				MSG_INTSEP,
 				t);
-	      printf("%d, %s\n", i, pk.getName(i));
 				break;
 			case TYPE_DOUBLE:
 				d = reinterpret_cast<double*>(pk.getVal(pk.getName(i)));
@@ -132,6 +128,7 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 	int i;
 	int n;
 	void* v;
+	void** vv;
 	float f;
 	int num_fields;
 	int getting_msg;
@@ -238,12 +235,11 @@ OMNeTPk* OMNeTPipe::recvPk(void) {
 		switch (ss) {
 			case TYPE_INT:
 				v = reinterpret_cast<void*>(atoi(val));
-        printf("READ %s, %d\n", name, v);
 				break;
 			case TYPE_FLOAT:
 				f = static_cast<float>(atof(val));
-				v = reinterpret_cast<void*>(&f);
-        printf("READ %s, %f\n", name, f);
+				vv = reinterpret_cast<void**>(&f);
+        v = *vv;
 				break;
 			case TYPE_DOUBLE:
 				//v = reinterpret_cast<void*>(atof(val));

@@ -21,10 +21,11 @@ while (i <= numTE)
     i = i + 1;
 end
 
+host = 'localhost';
+port = 18240;
 
 %% Startup pipe on port 18240
-pipe = OMNeTPipe(18240);
-
+pipe = OMNeTPipe(host, port);
 
 %% Recieve and iterate on packets
 while (1 == 1)
@@ -37,15 +38,22 @@ while (1 == 1)
     % Do a change of inputs and outputs
     if (strcmp(header, 'CHANGE'))      
         % Update the controls
-        u = [pkMap('u1'), pkMap('u2'), pkMap('u3'), pkMap('u4')];
-        y = runIteration(curTE, u, dt);
-        
+        u = [pkMap('u1'), pkMap('u2'), pkMap('u3'), pkMap('u4')]
+        newCurTE = runIteration(curTE, u, dt);
+        y = getOutputs(newCurTE);
+        TE(id) = newCurTE;
+
         % Send a packet containing the new input controls
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id',  single(dt), pipe.typeFloat, 'dt', single(y(1)), pipe.typeFloat, 'F_1', single(y(2)), pipe.typeFloat, 'F_2', single(y(3)), pipe.typeFloat, 'F_3', single(y(4)), pipe.typeFloat, 'F_4', single(y(5)), pipe.typeFloat, 'P', single(y(6)), pipe.typeFloat, 'V_L', single(y(7)), pipe.typeFloat, 'y_a3', single(y(8)), pipe.typeFloat, 'y_b3', single(y(9)), pipe.typeFloat, 'y_c3', single(y(10)), pipe.typeFloat, 'C');
+        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', (dt), pipe.typeFloat, 'dt', (y(1)), pipe.typeFloat, 'F_1', (y(2)), pipe.typeFloat, 'F_2', (y(3)), pipe.typeFloat, 'F_3', (y(4)), pipe.typeFloat, 'F_4', (y(5)), pipe.typeFloat, 'P', (y(6)), pipe.typeFloat, 'V_L', (y(7)), pipe.typeFloat, 'y_a3', (y(8)), pipe.typeFloat, 'y_b3', (y(9)), pipe.typeFloat, 'y_c3', (y(10)), pipe.typeFloat, 'C', (u(1)), pipe.typeFloat, 'u1', (u(2)), pipe.typeFloat, 'u2', (u(3)), pipe.typeFloat, 'u3', (u(4)), pipe.typeFloat, 'u4');
     % Get the inputs given the previous information
     elseif (strcmp(header, 'UPDATE'))
-        y = runIteration(curTE, getLastInputs(curTE), dt);
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', single(dt), pipe.typeFloat, 'dt', single(y(1)), pipe.typeFloat, 'F_1', single(y(2)), pipe.typeFloat, 'F_2', single(y(3)), pipe.typeFloat, 'F_3', single(y(4)), pipe.typeFloat, 'F_4', single(y(5)), pipe.typeFloat, 'P', single(y(6)), pipe.typeFloat, 'V_L', single(y(7)), pipe.typeFloat, 'y_a3', single(y(8)), pipe.typeFloat, 'y_b3', single(y(9)), pipe.typeFloat, 'y_c3', single(y(10)), pipe.typeFloat, 'C');
+        u = getLastInputs(curTE); 
+        newCurTE = runIteration(curTE, u, dt);
+        y = getOutputs(newCurTE);
+        TE(id) = newCurTE;
+        
+
+        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', (dt), pipe.typeFloat, 'dt', (y(1)), pipe.typeFloat, 'F_1', (y(2)), pipe.typeFloat, 'F_2', (y(3)), pipe.typeFloat, 'F_3', (y(4)), pipe.typeFloat, 'F_4', (y(5)), pipe.typeFloat, 'P', (y(6)), pipe.typeFloat, 'V_L', (y(7)), pipe.typeFloat, 'y_a3', (y(8)), pipe.typeFloat, 'y_b3', (y(9)), pipe.typeFloat, 'y_c3', (y(10)), pipe.typeFloat, 'C', (u(1)), pipe.typeFloat, 'u1', (u(2)), pipe.typeFloat, 'u2', (u(3)), pipe.typeFloat, 'u3', (u(4)), pipe.typeFloat, 'u4');
     end
     
 end

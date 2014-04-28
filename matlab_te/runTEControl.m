@@ -21,34 +21,38 @@ while (i <= numControl)
     control(i) = SimpleControl();
     i = i + 1;
 end
+host = 'localhost';
 port = 18100;
 
 %% Startup pipe on port 18100
-pipe = OMNeTPipe(18100);
+pipe = OMNeTPipe(host, port);
 
 
 %% Recieve and iterate on packets
 while (1 == 1)
     [header, pkMap] = recvPk(pipe);
-    ischar(header)
     id = pkMap('id');
     dt = pkMap('dt');
     curControl = control(id);
     % Do a change of inputs and outputs
-    
     if (strcmp(header, 'CHANGE'))      
         % Update the controls
         y = [pkMap('F_1'), pkMap('F_2'), pkMap('F_3'), pkMap('F_4'), pkMap('P'), pkMap('V_L'), pkMap('y_a3'), pkMap('y_b3'), pkMap('y_c3'), pkMap('C')];
-        u = updateControls(curControl, y, dt);
-        u
+        newCurControl = updateControls(curControl, y, dt);
+        u = getInputsFromController(newCurControl);
+        control(id) = newCurControl;
+
         % Send a packet containing the new input controls
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id',  single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', (dt), pipe.typeFloat, 'dt', (y(1)), pipe.typeFloat, 'F_1', (y(2)), pipe.typeFloat, 'F_2', (y(3)), pipe.typeFloat, 'F_3', (y(4)), pipe.typeFloat, 'F_4', (y(5)), pipe.typeFloat, 'P', (y(6)), pipe.typeFloat, 'V_L', (y(7)), pipe.typeFloat, 'y_a3', (y(8)), pipe.typeFloat, 'y_b3', (y(9)), pipe.typeFloat, 'y_c3', (y(10)), pipe.typeFloat, 'C', (u(1)), pipe.typeFloat, 'u1', (u(2)), pipe.typeFloat, 'u2', (u(3)), pipe.typeFloat, 'u3', (u(4)), pipe.typeFloat, 'u4');
     % Get the inputs given the previous information
     elseif (strcmp(header, 'UPDATE'))
-        y = getLastInputsFromController(curControl);
-        u = updateControls(curControl, y, dt);
+        y = getLastOutputsFromController(curControl);
+        newCurControl = updateControls(curControl, y, dt);
+        u = getInputsFromController(newCurControl);
+        control(id) = newCurControl;
         u
-        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', single(dt), pipe.typeFloat, 'dt', single(u(1)), pipe.typeFloat, 'u1', single(u(2)), pipe.typeFloat, 'u2',single(u(3)), pipe.typeFloat, 'u3', single(u(4)), pipe.typeFloat, 'u4');
+        y
+        sendPk(pipe, 'CHANGE', id, pipe.typeInt, 'id', (dt), pipe.typeFloat, 'dt', (y(1)), pipe.typeFloat, 'F_1', (y(2)), pipe.typeFloat, 'F_2', (y(3)), pipe.typeFloat, 'F_3', (y(4)), pipe.typeFloat, 'F_4', (y(5)), pipe.typeFloat, 'P', (y(6)), pipe.typeFloat, 'V_L', (y(7)), pipe.typeFloat, 'y_a3', (y(8)), pipe.typeFloat, 'y_b3', (y(9)), pipe.typeFloat, 'y_c3', (y(10)), pipe.typeFloat, 'C', (u(1)), pipe.typeFloat, 'u1', (u(2)), pipe.typeFloat, 'u2', (u(3)), pipe.typeFloat, 'u3', (u(4)), pipe.typeFloat, 'u4');
     end
     
 end

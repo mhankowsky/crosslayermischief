@@ -20,22 +20,7 @@ classdef OMNeTPipe
     
     methods
         % Constructor
-        function obj = OMNeTPipe( port )
-            % Process args
-            %if (nargin == 2)
-            %    host = varargin(1);
-            %    port = varargin(2);
-                %% FIXME For some reason, this has some problems with the port, it surrounds it with brackets
-            %elseif (nargin == 1)
-            %    host = varargin(1);
-            %    port = 18240; % Default port
-            %else
-            %    host = 'localhost'; % Default host (self)
-            %    port = 18100; % Default port
-            %end
-            
-            host = 'localhost'
-            port
+        function obj = OMNeTPipe( host, port )
             % Set up connection
             obj.serverConn = tcpip(host, port, 'NetworkRole', 'server');
             set(obj.serverConn, 'InputBufferSize', 4096);
@@ -117,7 +102,6 @@ classdef OMNeTPipe
             
             v = containers.Map;
             h = '';
-            'PARSE'
             % Process
             for i = 2:length(pk)
                 if ((double(pk(i)) == double(obj.msgFieldSep)) || ...
@@ -131,8 +115,7 @@ classdef OMNeTPipe
                     else
                         % Convert to int/double
                         if (valType ~= obj.typeStr)
-                            val = str2num(val)
-                            valName
+                            val = str2num(val);
                         end
                         
                         v(valName) = val;
@@ -177,7 +160,6 @@ classdef OMNeTPipe
         % @return            void
         function sendPk( obj, header, varargin )
             pk = formPk(obj, header, varargin);
-            pk
             fwrite(obj.serverConn, pk);
         end
         
@@ -194,7 +176,7 @@ classdef OMNeTPipe
                 pk = strcat(pk, char(pkChar));
             end
             
-            [h, v] = parsePk(obj, pk);            
+            [h, v] = parsePk(obj, pk);           
         end
     
     end
