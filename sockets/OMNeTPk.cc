@@ -17,6 +17,11 @@ OMNeTPk::OMNeTPk(char* h) {
 	strcpy(header, h);
 }
 
+/* Deconstructor */
+OMNeTPk::~OMNeTPk(void) {
+	free(header);
+}
+
 /* addVal
  * @brief adds a new variable to the packet
  * 

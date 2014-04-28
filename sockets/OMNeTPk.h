@@ -36,6 +36,7 @@ private:
 
 public:
 	OMNeTPk(char* h);
+	~OMNeTPk(void);
 	void addVal(char* name, void* val, int type);
 	char* getName(int index);
 	void* getVal(char* name);

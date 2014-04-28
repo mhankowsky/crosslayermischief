@@ -48,6 +48,8 @@ OMNeTBridge::OMNeTBridge(int cType) {
   var[TEVAR_Y_B3] = rpk->getVal("y_b3");
   var[TEVAR_Y_C3] = rpk->getVal("y_c3");
   var[TEVAR_C] = rpk->getVal("C");
+  
+  delete rpk;
 }
 
 /* Gats a variable from the current state after updating the state */
@@ -83,6 +85,8 @@ float OMNeTBridge::getVal(int v, float simTime) {
   var[TEVAR_Y_C3] = rpk->getVal("y_c3");
   var[TEVAR_C] = rpk->getVal("C");
 
+  delete rpk;
+  
   return ((float*) var)[v];  
 }
 
@@ -109,12 +113,12 @@ void OMNeTBridge::setVal(int v, float tv, float simTime) {
 	pk.addVal("f_2", FLOAT(var[TEVAR_F_2]), TYPE_FLOAT);
 	pk.addVal("f_3", FLOAT(var[TEVAR_F_3]), TYPE_FLOAT);
 	pk.addVal("f_4", FLOAT(var[TEVAR_F_4]), TYPE_FLOAT);
-	pk.addVal("p", FLOAT(var[TEVAR_P]), TYPE_FLOAT);
+	pk.addVal("P", FLOAT(var[TEVAR_P]), TYPE_FLOAT);
 	pk.addVal("v_l", FLOAT(var[TEVAR_V_L]), TYPE_FLOAT);
 	pk.addVal("y_a3", FLOAT(var[TEVAR_Y_A3]), TYPE_FLOAT);
 	pk.addVal("y_b3", FLOAT(var[TEVAR_Y_B3]), TYPE_FLOAT);
 	pk.addVal("y_c3", FLOAT(var[TEVAR_Y_C3]), TYPE_FLOAT);
-	pk.addVal("c", FLOAT(var[TEVAR_C]), TYPE_FLOAT);
+	pk.addVal("C", FLOAT(var[TEVAR_C]), TYPE_FLOAT);
   }
   else {
 	pk.addVal("u_1", FLOAT(var[TEVAR_U_1]), TYPE_FLOAT);
@@ -143,5 +147,7 @@ void OMNeTBridge::setVal(int v, float tv, float simTime) {
   var[TEVAR_Y_C3] = rpk->getVal("y_c3");
   var[TEVAR_C] = rpk->getVal("C");
 
+  delete rpk;
+  
   return;
 }
