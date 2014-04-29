@@ -11,9 +11,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-//
-package crosslayermischief;
+// 
 
+package crosslayermischief_new;
 
 import inet.networklayer.autorouting.ipv4.IPv4NetworkConfigurator;
 import inet.nodes.ethernet.Eth100M;
@@ -21,13 +21,13 @@ import inet.nodes.inet.Router;
 import inet.nodes.inet.StandardHost;
 import inet.nodes.internetcloud.InternetCloud;
 import ned.DatarateChannel;
-import inet.nodes.inet.AdhocHost;
 
 
-network FactoryandController
+
+network FactoryAndController
 {
     parameters:
-        int numSensors;
+        int numSensor;
 
     types:
         channel C extends DatarateChannel
@@ -40,24 +40,19 @@ network FactoryandController
             parameters:
                 @display("p=61,163");
         }
-		
-		
-        controlRouter: Router;
-        controller: StandardHost;
-        factoryRouter: Router;
-        //Relplace StdHost with out AdHoc Model
-        sensors[numSensors]: AdhocHost;
+
+		FactorySensor[numSensor]:Sensor;
+        FactoryRouter: Router;
+        FactoryPC: StandardHost;
+
+        ControllerRouter: Router;
+        Controller: StandardHost;
+
         internet: InternetCloud;
-
     connections:
+        ControllerRouter.pppg++ <--> C <--> internet.pppg++;
+        Controller.ethg++ <--> Eth100M <--> ControllerRouter.ethg++;
 
-        for i=0..numSenders-1 {
-                factoryRouter.pppg++ <--> C <--> internet.pppg++;
-                sensors[i].ethg++ <--> Eth100M <--> factoryRouter.ethg++;
-        }
-
-        controlRouter.pppg++ <--> C <--> internet.pppg++;
-        controller.ethg++ <--> Eth100M <--> controlRouter.ethg++;
+    	FactoryRouter.pppg++ <--> C <--> internet.pppg++;
+        FactoryPC.ethg++ <--> Eth100M <--> FactoryRouter.ethg++;
 }
-
-

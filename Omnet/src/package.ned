@@ -1,3 +1,0 @@
-package crosslayermischief;
-
-@license(LGPL);
