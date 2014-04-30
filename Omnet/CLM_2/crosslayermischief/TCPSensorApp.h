@@ -15,7 +15,7 @@
 #define __INET_TCPSENSORAPP_H
 
 #include "INETDefs.h"
-
+#include "GenericDataPacket_m.h"
 #include "TCPGenericCliAppBase.h"
 #include "NodeStatus.h"
 #include "ILifecycle.h"
@@ -32,6 +32,8 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
     int numRequestsToSend; // requests to send in this session
     simtime_t startTime;
     simtime_t stopTime;
+    char* sensorName;
+    simtime_t delay;
 
     /** Utility: sends a request to the server */
     virtual void sendRequest();
