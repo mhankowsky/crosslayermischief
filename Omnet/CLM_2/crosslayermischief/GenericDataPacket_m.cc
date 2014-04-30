@@ -39,6 +39,8 @@ GenericDataPacket::GenericDataPacket(const char *name, int kind) : ::cPacket(nam
     this->expectedReplyLength_var = 0;
     this->replyDelay_var = 0;
     this->serverClose_var = 0;
+    this->data = 0.0;
+    this->src = 0;
 }
 
 GenericDataPacket::GenericDataPacket(const GenericDataPacket& other) : ::cPacket(other)

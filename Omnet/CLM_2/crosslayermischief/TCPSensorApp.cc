@@ -16,6 +16,7 @@
 //
 
 
+#include "GenericAppMsg_m.h"
 #include "GenericDataPacket_m.h"
 #include "TCPSensorApp.h"
 #include "NodeOperations.h"
@@ -48,6 +49,9 @@ void TCPSensorApp::initialize(int stage)
     WATCH(numRequestsToSend);
     WATCH(earlySend);
 
+    // FIXME
+    sensorName = "F this project";
+    delay = par("delay");
     startTime = par("startTime");
     stopTime = par("stopTime");
     if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
@@ -70,30 +74,14 @@ bool TCPSensorApp::isNodeUp()
 bool TCPSensorApp::handleOperationStage(LifecycleOperation *operation, int stage, IDoneCallback *doneCallback)
 {
     Enter_Method_Silent();
-    if (dynamic_cast<NodeStartOperation *>(operation)) {
+
         if (stage == NodeStartOperation::STAGE_APPLICATION_LAYER) {
             simtime_t now = simTime();
             simtime_t start = std::max(startTime, now);
-            if (timeoutMsg && ((stopTime < SIMTIME_ZERO) || (start < stopTime) || (start == stopTime && startTime == stopTime)))
-            {
-                timeoutMsg->setKind(MSGKIND_CONNECT);
-                scheduleAt(start, timeoutMsg);
-            }
+            timeoutMsg->setKind(MSGKIND_CONNECT);
+            scheduleAt(start, timeoutMsg);
         }
-    }
-    else if (dynamic_cast<NodeShutdownOperation *>(operation)) {
-        if (stage == NodeShutdownOperation::STAGE_APPLICATION_LAYER) {
-            cancelEvent(timeoutMsg);
-            if (socket.getState() == TCPSocket::CONNECTED || socket.getState() == TCPSocket::CONNECTING || socket.getState() == TCPSocket::PEER_CLOSED)
-                close();
-            // TODO: wait until socket is closed
-        }
-    }
-    else if (dynamic_cast<NodeCrashOperation *>(operation)) {
-        if (stage == NodeCrashOperation::STAGE_CRASH)
-            cancelEvent(timeoutMsg);
-    }
-    else throw cRuntimeError("Unsupported lifecycle operation '%s'", operation->getClassName());
+
     return true;
 }
 
@@ -109,10 +97,15 @@ void TCPSensorApp::sendPacket()
     //TODO Read from MATLAB
     // READ
     float matlabData = 1.5252;
+    char packetName[50];
+    sprintf(packetName, "%s=%f", sensorName, matlabData);
+    GenericAppMsg *msg = new GenericAppMsg(packetName, 1);
 
-    GenericDataPacket *msg = new GenericDataPacket("F_1");
-    msg->setData(matlabData);
-    msg->setSourceId(1);
+    //GenericAppMsg *msg2 = new GenericAppMsg("data");
+    //GenericDataPacket *msg;// = new GenericDataPacket();
+    //msg = new GenericDataPacket();
+    //msg->setData(matlabData);
+    //msg->setSourceId(1);
 
     // Send packet
     // TODO: Fix the length of the packet
@@ -129,6 +122,9 @@ void TCPSensorApp::sendPacket()
 
     packetsSent++;
     bytesSent += numBytes;
+    cMessage *selfMsg = new cMessage();
+
+    scheduleAt(simTime() + delay, selfMsg);
 }
 
 void TCPSensorApp::handleTimer(cMessage *msg)
@@ -178,24 +174,17 @@ void TCPSensorApp::rescheduleOrDeleteTimer(simtime_t d, short int msgKind)
 {
     cancelEvent(timeoutMsg);
 
-    if (stopTime < SIMTIME_ZERO || d < stopTime)
-    {
-        timeoutMsg->setKind(msgKind);
-        scheduleAt(d, timeoutMsg);
-    }
-    else
-    {
-        delete timeoutMsg;
-        timeoutMsg = NULL;
-    }
+    timeoutMsg->setKind(msgKind);
+    scheduleAt(d, timeoutMsg);
+
 }
 
 void TCPSensorApp::socketDataArrived(int connId, void *ptr, cPacket *msg, bool urgent)
 {
     TCPGenericCliAppBase::socketDataArrived(connId, ptr, msg, urgent);
 
-    if (numRequestsToSend > 0)
-    {
+    //if (numRequestsToSend > 0)
+    //{
         EV << "reply arrived\n";
 
         if (timeoutMsg)
@@ -203,12 +192,12 @@ void TCPSensorApp::socketDataArrived(int connId, void *ptr, cPacket *msg, bool u
             simtime_t d = simTime() + (simtime_t) par("thinkTime");
             rescheduleOrDeleteTimer(d, MSGKIND_SEND);
         }
-    }
-    else if (socket.getState() != TCPSocket::LOCALLY_CLOSED)
-    {
-        EV << "reply to last request arrived, closing session\n";
-        close();
-    }
+    //}
+    //else if (socket.getState() != TCPSocket::LOCALLY_CLOSED)
+    //{
+    //    EV << "reply to last request arrived, closing session\n";
+    //    close();
+    //}
 }
 
 void TCPSensorApp::socketClosed(int connId, void *ptr)

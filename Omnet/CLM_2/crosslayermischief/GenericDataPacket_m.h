@@ -2,8 +2,8 @@
 // Generated file, do not edit! Created by opp_msgc 4.4 from applications/tcpapp/GenericDataPacket.msg.
 //
 
-#ifndef _GENERICDATAPACKET_M_H_
-#define _GENERICDATAPACKET_M_H_
+#ifndef _GENERICDATAPACKETA_M_H_
+#define _GENERICDATAPACKETA_M_H_
 
 #include <omnetpp.h>
 

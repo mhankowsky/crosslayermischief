@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CLM_2
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I../inet/src/linklayer/ieee80211/radio -I../inet/src/linklayer/ethernet -I../inet/src/networklayer/common -I../inet/src -I../inet/src/networklayer/icmpv6 -I../inet/src/world/obstacles -I../inet/src/networklayer/manetrouting/base -I../inet/src/mobility -I../inet/src/networklayer/contract -I../inet/src/networklayer/xmipv6 -I../inet/src/networklayer/autorouting/ipv4 -I../inet/src/linklayer/ieee80211/mgmt -I../inet/src/util -I../inet/src/linklayer/common -I../inet/src/transport/contract -I../inet/src/status -I../inet/src/applications/tcpapp -I../inet/src/linklayer/radio/propagation -I../inet/src/linklayer/ieee80211/radio/errormodel -I../inet/src/linklayer/radio -I../inet/src/util/headerserializers/tcp -I../inet/src/networklayer/ipv4 -I../inet/src/util/headerserializers/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/world/radio -I../inet/src/linklayer/ieee80211/mac -I../inet/src/transport/sctp -I../inet/src/networklayer/ipv6 -I../inet/src/util/headerserializers/udp -I../inet/src/networklayer/ipv6tunneling -I../inet/src/battery/models -I../inet/src/applications/pingapp -I../inet/src/util/headerserializers/sctp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/transport/tcp_common -I../inet/src/transport/udp -L../inet/out/$$\(CONFIGNAME\)/src -linet -DINET_IMPORT -KINET_PROJ=../inet
+#  opp_makemake -f --deep -O out -I../inet/src/linklayer/ieee80211/radio -I../inet/src/linklayer/ethernet -I../inet/src/networklayer/common -I../inet/src -I../inet/src/networklayer/icmpv6 -I../inet/src/world/obstacles -I../inet/src/networklayer/manetrouting/base -I../inet/src/mobility -I../inet/src/networklayer/contract -I../inet/src/networklayer/xmipv6 -I../inet/src/networklayer/autorouting/ipv4 -I../inet/src/linklayer/ieee80211/mgmt -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/common -I../inet/src/status -I../inet/src/applications/tcpapp -I../inet/src/linklayer/radio/propagation -I../inet/src/linklayer/ieee80211/radio/errormodel -I../inet/src/linklayer/radio -I../inet/src/util/headerserializers/tcp -I../inet/src/networklayer/ipv4 -I../inet/src/util/headerserializers/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/world/radio -I../inet/src/linklayer/ieee80211/mac -I../inet/src/transport/sctp -I../inet/src/networklayer/ipv6 -I../inet/src/util/headerserializers/udp -I../inet/src/networklayer/ipv6tunneling -I../inet/src/battery/models -I../inet/src/applications/pingapp -I../inet/src/util/headerserializers/sctp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/transport/tcp_common -I../inet/src/transport/udp -L../inet/out/$$\(CONFIGNAME\)/src -linet -DINET_IMPORT -KINET_PROJ=../inet
 #
 
 # Name of target to be created (-o option)
@@ -28,8 +28,8 @@ INCLUDE_PATH = \
     -I../inet/src/networklayer/autorouting/ipv4 \
     -I../inet/src/linklayer/ieee80211/mgmt \
     -I../inet/src/util \
-    -I../inet/src/linklayer/common \
     -I../inet/src/transport/contract \
+    -I../inet/src/linklayer/common \
     -I../inet/src/status \
     -I../inet/src/applications/tcpapp \
     -I../inet/src/linklayer/radio/propagation \
@@ -70,7 +70,14 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
-OBJS = $O/crosslayermischief/TCPSensorApp.o
+OBJS = \
+    $O/OMNeTPk.o \
+    $O/OMNeTBridge.o \
+    $O/Sockets.o \
+    $O/OMNeTPipe.o \
+    $O/crosslayermischief/TCPActuatorApp.o \
+    $O/crosslayermischief/TCPSensorApp.o \
+    $O/crosslayermischief/TCPControllerApp.o
 
 # Message files
 MSGFILES =
@@ -161,8 +168,51 @@ depend:
 	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc crosslayermischief/*.cc crosslayermischief/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/OMNeTBridge.o: OMNeTBridge.cc \
+	OMNeTBridge.h \
+	OMNeTPipe.h \
+	OMNeTPk.h \
+	Sockets.h
+$O/OMNeTPipe.o: OMNeTPipe.cc \
+	OMNeTPipe.h \
+	OMNeTPk.h \
+	Sockets.h
+$O/OMNeTPk.o: OMNeTPk.cc \
+	OMNeTPk.h
+$O/Sockets.o: Sockets.cc \
+	Sockets.h
+$O/crosslayermischief/TCPActuatorApp.o: crosslayermischief/TCPActuatorApp.cc \
+	crosslayermischief/TCPActuatorApp.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/LifecycleOperation.h \
+	$(INET_PROJ)/src/base/ModuleAccess.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/status/NodeStatus.h \
+	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocket.h
+$O/crosslayermischief/TCPControllerApp.o: crosslayermischief/TCPControllerApp.cc \
+	crosslayermischief/TCPControllerApp.h \
+	$(INET_PROJ)/src/base/ByteArray.h \
+	$(INET_PROJ)/src/base/ByteArrayMessage.h \
+	$(INET_PROJ)/src/base/ByteArrayMessage_m.h \
+	$(INET_PROJ)/src/base/ByteArray_m.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/LifecycleOperation.h \
+	$(INET_PROJ)/src/base/ModuleAccess.h \
+	$(INET_PROJ)/src/base/NodeOperations.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/status/NodeStatus.h \
+	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocket.h
 $O/crosslayermischief/TCPSensorApp.o: crosslayermischief/TCPSensorApp.cc \
 	crosslayermischief/TCPSensorApp.h \
+	$(INET_PROJ)/src/applications/tcpapp/GenericAppMsg_m.h \
 	$(INET_PROJ)/src/applications/tcpapp/TCPGenericCliAppBase.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
