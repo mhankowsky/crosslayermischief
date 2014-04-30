@@ -13,179 +13,161 @@
 
 
 #include "TCPControllerApp.h"
+#include "TEPacket.h"
+#include "GenericAppMsg_m.h"
+#include "IPvXAddressResolver.h"
 
-#include "ByteArrayMessage.h"
-#include "TCPCommand_m.h"
-#include "ModuleAccess.h"
-#include "NodeOperations.h"
 
-Define_Module(TCPControllerApp);
-
+simsignal_t TCPControllerApp::connectSignal = SIMSIGNAL_NULL;
 simsignal_t TCPControllerApp::rcvdPkSignal = SIMSIGNAL_NULL;
 simsignal_t TCPControllerApp::sentPkSignal = SIMSIGNAL_NULL;
-
-OMNetBridge bridge (1);
 
 void TCPControllerApp::initialize(int stage)
 {
     cSimpleModule::initialize(stage);
-    if (stage == 0)
-    {
-        delay = par("ControllerDelay");
-        ControllerFactor = par("ControllerFactor");
+    if (stage != 3)
+        return;
 
-        bytesRcvd = bytesSent = 0;
-        WATCH(bytesRcvd);
-        WATCH(bytesSent);
+    numSessions = numBroken = packetsSent = packetsRcvd = bytesSent = bytesRcvd = 0;
 
-        rcvdPkSignal = registerSignal("rcvdPk");
-        sentPkSignal = registerSignal("sentPk");
+    //statistics
+    connectSignal = registerSignal("connect");
+    rcvdPkSignal = registerSignal("rcvdPk");
+    sentPkSignal = registerSignal("sentPk");
 
-        socket.setOutputGate(gate("tcpOut"));
-        socket.readDataTransferModePar(*this);
+    WATCH(numSessions);
+    WATCH(numBroken);
+    WATCH(packetsSent);
+    WATCH(packetsRcvd);
+    WATCH(bytesSent);
+    WATCH(bytesRcvd);
 
-        nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
-    }
-    else if (stage == 1)
-    {
-        if (isNodeUp())
-            startListening();
-    }
-}
-
-bool TCPControllerApp::isNodeUp()
-{
-    return !nodeStatus || nodeStatus->getState() == NodeStatus::UP;
-}
-
-void TCPControllerApp::startListening()
-{
+    // parameters
     const char *localAddress = par("localAddress");
     int localPort = par("localPort");
-    socket.renewSocket();
-    socket.bind(localAddress[0] ? IPvXAddress(localAddress) : IPvXAddress(), localPort);
-    socket.listen();
-}
+    socket.readDataTransferModePar(*this);
+    socket.bind(*localAddress ? IPvXAddressResolver().resolve(localAddress) : IPvXAddress(), localPort);
 
-void TCPControllerApp::stopListening()
-{
-    socket.close();
-}
+    socket.setCallbackObject(this);
+    socket.setOutputGate(gate("tcpOut"));
 
-void TCPControllerApp::sendDown(cMessage *msg)
-{
-    if (msg->isPacket())
-    {
-        bytesSent += ((cPacket *)msg)->getByteLength();
-        emit(sentPkSignal, (cPacket *)msg);
-    }
-
-    send(msg, "tcpOut");
+    setStatusString("waiting");
 }
 
 void TCPControllerApp::handleMessage(cMessage *msg)
 {
-    if (!isNodeUp())
-        throw cRuntimeError("Application is not running");
     if (msg->isSelfMessage())
-    {
-        sendDown(msg);
-    }
-    else if (msg->getKind() == TCP_I_PEER_CLOSED)
-    {
-        // we'll close too
-        msg->setName("close");
-        msg->setKind(TCP_C_CLOSE);
-
-        if (delay == 0)
-            sendDown(msg);
-        else
-            scheduleAt(simTime() + delay, msg); // send after a delay
-    }
-    else if (msg->getKind() == TCP_I_DATA || msg->getKind() == TCP_I_URGENT_DATA)
-    {
-        cPacket *pkt = check_and_cast<cPacket *>(msg);
-        emit(rcvdPkSignal, pkt);
-        bytesRcvd += pkt->getByteLength();
-
-        //Cast to Matlab Packet and send data to controller
-        TEPacket *te_msg = check_and_cast<TEPacket *>(msg);
-
-        int matlabID = te_msg->getSourceId();
-        float matlabData = te_msg->getData();
-
-
-
-
-
-
-        // reverse direction, modify length, and send it back
-        pkt->setKind(TCP_C_SEND);
-        TCPCommand *ind = check_and_cast<TCPCommand *>(pkt->removeControlInfo());
-        TCPSendCommand *cmd = new TCPSendCommand();
-        cmd->setConnId(ind->getConnId());
-        pkt->setControlInfo(cmd);
-        delete ind;
-
-        long byteLen = pkt->getByteLength() * ControllerFactor;
-
-        if (byteLen < 1)
-            byteLen = 1;
-
-        pkt->setByteLength(byteLen);
-
-        ByteArrayMessage *baMsg = dynamic_cast<ByteArrayMessage *>(pkt);
-
-        // if (dataTransferMode == TCP_TRANSFER_BYTESTREAM)
-        if (baMsg)
-        {
-            ByteArray& outdata = baMsg->getByteArray();
-            ByteArray indata = outdata;
-            outdata.setDataArraySize(byteLen);
-
-            for (long i = 0; i < byteLen; i++)
-                outdata.setData(i, indata.getData(i / ControllerFactor));
-        }
-
-        if (delay == 0)
-            sendDown(pkt);
-        else
-            scheduleAt(simTime() + delay, pkt); // send after a delay
-    }
+        handleTimer(msg);
     else
-    {
-        // some indication -- ignore
-        delete msg;
-    }
+        socket.processMessage(msg);
+}
 
-    if (ev.isGUI())
-    {
-        char buf[80];
-        sprintf(buf, "rcvd: %ld bytes\nsent: %ld bytes", bytesRcvd, bytesSent);
-        getDisplayString().setTagArg("t", 0, buf);
+void TCPControllerApp::connect()
+{
+    // we need a new connId if this is not the first connection
+    socket.renewSocket();
+
+    // connect
+    const char *connectAddress = par("connectAddress");
+    int connectPort = par("connectPort");
+
+    EV << "issuing OPEN command\n";
+    setStatusString("connecting");
+
+    IPvXAddress destination;
+    IPvXAddressResolver().tryResolve(connectAddress, destination);
+    if (destination.isUnspecified())
+        EV << "cannot resolve destination address: " << connectAddress << endl;
+    else {
+        socket.connect(destination, connectPort);
+
+        numSessions++;
+        emit(connectSignal, 1L);
     }
 }
 
-bool TCPControllerApp::handleOperationStage(LifecycleOperation *operation, int stage, IDoneCallback *doneCallback)
+void TCPControllerApp::close()
 {
-    Enter_Method_Silent();
-    if (dynamic_cast<NodeStartOperation *>(operation)) {
-        if (stage == NodeStartOperation::STAGE_APPLICATION_LAYER)
-            startListening();
+    setStatusString("closing");
+    EV << "issuing CLOSE command\n";
+    socket.close();
+    emit(connectSignal, -1L);
+}
+
+void TCPControllerApp::sendPacket(int numBytes, int expectedReplyBytes, bool serverClose)
+{
+    EV << "sending " << numBytes << " bytes, expecting " << expectedReplyBytes
+       << (serverClose ? ", and server should close afterwards\n" : "\n");
+
+    GenericAppMsg *msg = new GenericAppMsg("data");
+    msg->setByteLength(numBytes);
+    msg->setExpectedReplyLength(expectedReplyBytes);
+    msg->setServerClose(serverClose);
+
+    emit(sentPkSignal, msg);
+    socket.send(msg);
+
+    packetsSent++;
+    bytesSent += numBytes;
+}
+
+void TCPControllerApp::setStatusString(const char *s)
+{
+    if (ev.isGUI())
+        getDisplayString().setTagArg("t", 0, s);
+}
+
+void TCPControllerApp::socketEstablished(int, void *)
+{
+    // *redefine* to perform or schedule first sending
+    EV << "connected\n";
+    setStatusString("connected");
+}
+
+void TCPControllerApp::socketDataArrived(int, void *, cPacket *msg, bool)
+{
+    // *redefine* to perform or schedule next sending
+    packetsRcvd++;
+    bytesRcvd += msg->getByteLength();
+    emit(rcvdPkSignal, msg);
+
+    TEPacket* te_msg = dynamic_cast<TEPacket*>(msg);
+
+    delete msg;
+}
+
+void TCPControllerApp::socketPeerClosed(int, void *)
+{
+    // close the connection (if not already closed)
+    if (socket.getState() == TCPSocket::PEER_CLOSED)
+    {
+        EV << "remote TCP closed, closing here as well\n";
+        close();
     }
-    else if (dynamic_cast<NodeShutdownOperation *>(operation)) {
-        if (stage == NodeShutdownOperation::STAGE_APPLICATION_LAYER)
-            // TODO: wait until socket is closed
-            stopListening();
-    }
-    else if (dynamic_cast<NodeCrashOperation *>(operation)) ;
-    else throw cRuntimeError("Unsupported lifecycle operation '%s'", operation->getClassName());
-    return true;
+}
+
+void TCPControllerApp::socketClosed(int, void *)
+{
+    // *redefine* to start another session etc.
+    EV << "connection closed\n";
+    setStatusString("closed");
+}
+
+void TCPControllerApp::socketFailure(int, void *, int code)
+{
+    // subclasses may override this function, and add code try to reconnect after a delay.
+    EV << "connection broken\n";
+    setStatusString("broken");
+
+    numBroken++;
 }
 
 void TCPControllerApp::finish()
 {
-    recordScalar("bytesRcvd", bytesRcvd);
-    recordScalar("bytesSent", bytesSent);
+    std::string modulePath = getFullPath();
+
+    EV << modulePath << ": opened " << numSessions << " sessions\n";
+    EV << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n";
+    EV << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n";
 }
 

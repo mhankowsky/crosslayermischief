@@ -19,7 +19,6 @@
 #include "LifecycleOperation.h"
 #include "OMNeTBridge.h"
 #include "TEPacket.h"
-#include "OMNeTBridge.h"
 
 
 /**
@@ -38,8 +37,8 @@ class INET_API TCPActuatorApp : public cSimpleModule, public ILifecycle
     long msgsSent;
     long bytesRcvd;
     long bytesSent;
-	
-	OMNeTBridge* bridge;
+
+
 
     //statistics:
     static simsignal_t rcvdPkSignal;

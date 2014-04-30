@@ -96,6 +96,7 @@ simple TCPActuatorApp like ITCPApp
         string dataTransferMode @enum("bytecount","object","bytestream") = default("object");
         double startTime @unit(s) = default(1s); // time first session begins
         double stopTime @unit(s) = default(-1s);  // time of finishing sending, negative values mean forever
+        double replyDelay @unit(s) = default(500ms); 
         volatile int numRequestsPerSession = default(1);  // number of requests sent per session
         volatile int requestLength @unit(B) = default(200B); // length of a request
         volatile int replyLength @unit(B) = default(1MiB); // length of a reply

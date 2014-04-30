@@ -15,10 +15,10 @@
 #define __INET_TCPSENSORAPP_H
 
 #include "INETDefs.h"
-#include "GenericDataPacket_m.h"
 #include "TCPGenericCliAppBase.h"
 #include "NodeStatus.h"
 #include "ILifecycle.h"
+#include "OMNeTBridge.h"
 
 /**
  * An example request-reply based client application.
@@ -34,6 +34,7 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
     simtime_t stopTime;
     char* sensorName;
     simtime_t delay;
+    OMNeTBridge* bridge;
 
     /** Utility: sends a request to the server */
     virtual void sendRequest();
