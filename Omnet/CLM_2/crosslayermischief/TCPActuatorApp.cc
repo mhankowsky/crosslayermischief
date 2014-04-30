@@ -26,6 +26,8 @@ Define_Module(TCPActuatorApp);
 simsignal_t TCPActuatorApp::rcvdPkSignal = SIMSIGNAL_NULL;
 simsignal_t TCPActuatorApp::sentPkSignal = SIMSIGNAL_NULL;
 
+OMNeTBridge bridge (2);
+
 void TCPActuatorApp::initialize(int stage)
 {
     if (stage == 0)
@@ -44,8 +46,6 @@ void TCPActuatorApp::initialize(int stage)
         WATCH(bytesRcvd);
         WATCH(bytesSent);
 
-        //Set up the MatlabID
-        bridge = new OMNeTBridge(2);
 
         //TODO should use IPvXAddressResolver in stage 3
         const char *localAddress = par("localAddress");
@@ -95,86 +95,44 @@ void TCPActuatorApp::sendBack(cMessage *msg)
 
 void TCPActuatorApp::handleMessage(cMessage *msg)
 {
-    if (msg->isSelfMessage())
-    {
-        sendBack(msg);
-    }
-    else if (msg->getKind()==TCP_I_PEER_CLOSED)
-    {
-        // we'll close too, but only after there's surely no message
-        // pending to be sent back in this connection
-        msg->setName("close");
-        msg->setKind(TCP_C_CLOSE);
-        sendOrSchedule(msg, delay+maxMsgDelay);
-    }
-    else if (msg->getKind()==TCP_I_DATA || msg->getKind()==TCP_I_URGENT_DATA)
-    {
-        GenericAppMsg *appmsg = dynamic_cast<GenericAppMsg *>(msg);
-        if (!appmsg)
-            error("Message (%s)%s is not a GenericAppMsg -- "
-                  "probably wrong client app, or wrong setting of TCP's "
-                  "dataTransferMode parameters "
-                  "(try \"object\")",
-                  msg->getClassName(), msg->getName());
+    if (msg->getKind() == TCP_I_PEER_CLOSED)
+       {
+           // we close too
+           msg->setName("close");
+           msg->setKind(TCP_C_CLOSE);
+           send(msg, "tcpOut");
+       }
+       else if (msg->getKind() == TCP_I_DATA || msg->getKind() == TCP_I_URGENT_DATA)
+       {
+           TEPacket *appmsg = dynamic_cast<TEPacket*>(msg);
 
-        msgsRcvd++;
-        bytesRcvd += appmsg->getByteLength();
-        emit(rcvdPkSignal, appmsg);
+           cPacket *pk = PK(msg);
+           long packetLength = pk->getByteLength();
+           bytesRcvd += packetLength;
+           emit(rcvdPkSignal, pk);
 
-        long requestedBytes = appmsg->getExpectedReplyLength();
-
-        simtime_t msgDelay = appmsg->getReplyDelay();
-        if (msgDelay>maxMsgDelay)
-            maxMsgDelay = msgDelay;
-
-        bool doClose = appmsg->getServerClose();
-        int connId = check_and_cast<TCPCommand *>(appmsg->getControlInfo())->getConnId();
-
-        //Pass data to the Matlab Model
-        int matlabID = appmsg->getSenderModule()->par("matlabID");
-        appmsg->
+           //Pass data to the Matlab Model
+           int matlabID = appmsg->getSourceId();
+           float matlabData = appmsg->getData();
+           bridge.setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
 
 
-        if (requestedBytes==0)
-        {
-            delete msg;
-        }
-        else
-        {
-            delete appmsg->removeControlInfo();
-            TCPSendCommand *cmd = new TCPSendCommand();
-            cmd->setConnId(connId);
-            appmsg->setControlInfo(cmd);
 
-            // set length and send it back
-            appmsg->setKind(TCP_C_SEND);
-            appmsg->setByteLength(requestedBytes);
-            sendOrSchedule(appmsg, delay+msgDelay);
-        }
 
-        if (doClose)
-        {
-            cMessage *msg = new cMessage("close");
-            msg->setKind(TCP_C_CLOSE);
-            TCPCommand *cmd = new TCPCommand();
-            cmd->setConnId(connId);
-            msg->setControlInfo(cmd);
-            sendOrSchedule(msg, delay+maxMsgDelay);
-        }
-    }
-    else
-    {
-        // some indication -- ignore
-        EV << "drop msg: " << msg->getName() << ", kind:"<< msg->getKind() << endl;
-        delete msg;
-    }
+           delete msg;
 
-    if (ev.isGUI())
-    {
-        char buf[64];
-        sprintf(buf, "rcvd: %ld pks %ld bytes\nsent: %ld pks %ld bytes", msgsRcvd, bytesRcvd, msgsSent, bytesSent);
-        getDisplayString().setTagArg("t", 0, buf);
-    }
+           if (ev.isGUI())
+           {
+               char buf[32];
+               sprintf(buf, "rcvd: %ld bytes", bytesRcvd);
+               getDisplayString().setTagArg("t", 0, buf);
+           }
+       }
+       else
+       {
+           // must be data or some kind of indication -- can be dropped
+           delete msg;
+       }
 }
 
 void TCPActuatorApp::finish()

@@ -16,14 +16,14 @@
 //
 
 
-#include "GenericDataPacket_m.h"
+#include "TEPacket.h"
 #include "TCPSensorApp.h"
 #include "NodeOperations.h"
 #include "ModuleAccess.h"
 
 #define MSGKIND_CONNECT  0
 #define MSGKIND_SEND     1
-
+OMNeTBridge bridge (2);
 
 Define_Module(TCPSensorApp);
 
@@ -108,9 +108,10 @@ void TCPSensorApp::sendPacket()
 {
     //TODO Read from MATLAB
     // READ
-    float matlabData = 1.5252;
+    //float matlabData = bridge.getVal(1, (float) SIMTIME_DLB(simTime()));
+    float matlabData = 1.56;
 
-    GenericDataPacket *msg = new GenericDataPacket("F_1");
+    TEPacket *msg = new TEPacket("F_1");
     msg->setData(matlabData);
     msg->setSourceId(1);
 

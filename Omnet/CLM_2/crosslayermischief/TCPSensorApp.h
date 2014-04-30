@@ -67,7 +67,6 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
 
     virtual bool isNodeUp();
 
-    virtual void sendPacket();
 };
 
 #endif

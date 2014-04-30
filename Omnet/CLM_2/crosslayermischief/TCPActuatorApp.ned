@@ -1,6 +1,3 @@
-//
-// Copyright (C) 2004 Andras Varga
-//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
 // as published by the Free Software Foundation; either version 2
@@ -89,14 +86,14 @@ import inet.applications.ITCPApp;
 //
 // @see ~TCPGenericSrvApp, ~GenericAppMsg, ~TelnetApp
 //
-simple TCPControllerApp like ITCPApp
+simple TCPActuatorApp like ITCPApp
 {
     parameters:
         string localAddress = default(""); // may be left empty ("")
         int localPort = default(-1); // port number to listen on
         string connectAddress = default("");  // server address (may be symbolic)
         int connectPort = default(1000); // port number to connect to
-        string dataTransferMode @enum("bytecount","object","bytestream") = default("bytecount");
+        string dataTransferMode @enum("bytecount","object","bytestream") = default("object");
         double startTime @unit(s) = default(1s); // time first session begins
         double stopTime @unit(s) = default(-1s);  // time of finishing sending, negative values mean forever
         volatile int numRequestsPerSession = default(1);  // number of requests sent per session

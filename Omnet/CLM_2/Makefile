@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CLM_2
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ethernet -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/common -I/home/mhankows/Omnet_Workspace/fthis/inet/src -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/icmpv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/world/obstacles -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/manetrouting/base -I/home/mhankows/Omnet_Workspace/fthis/inet/src/mobility -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/xmipv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/autorouting/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/mgmt -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/common -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/status -I/home/mhankows/Omnet_Workspace/fthis/inet/src/applications/tcpapp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/radio/propagation -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/radio/errormodel -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/tcp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/base -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers -I/home/mhankows/Omnet_Workspace/fthis/inet/src/world/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/mac -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/sctp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/udp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv6tunneling -I/home/mhankows/Omnet_Workspace/fthis/inet/src/battery/models -I/home/mhankows/Omnet_Workspace/fthis/inet/src/applications/pingapp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/sctp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/arp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/tcp_common -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/udp -L/home/mhankows/Omnet_Workspace/fthis/inet/out/$(CONFIGNAME)/src -linet -DINET_IMPORT -KINET_PROJ=/home/mhankows/Omnet_Workspace/fthis/inet
+#  opp_makemake -f --deep -O out -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ethernet -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/common -I/home/mhankows/Omnet_Workspace/fthis/inet/src -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/icmpv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/world/obstacles -I/home/mhankows/Omnet_Workspace/fthis/inet/src/mobility -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/manetrouting/base -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/xmipv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/autorouting/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/mgmt -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/common -I/home/mhankows/Omnet_Workspace/fthis/inet/src/status -I/home/mhankows/Omnet_Workspace/fthis/inet/src/applications/tcpapp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/radio/propagation -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/radio/errormodel -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/tcp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/ipv4 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/base -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers -I/home/mhankows/Omnet_Workspace/fthis/inet/src/world/radio -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/ieee80211/mac -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/sctp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv6 -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/udp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/ipv6tunneling -I/home/mhankows/Omnet_Workspace/fthis/inet/src/battery/models -I/home/mhankows/Omnet_Workspace/fthis/inet/src/applications/pingapp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/util/headerserializers/sctp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/linklayer/contract -I/home/mhankows/Omnet_Workspace/fthis/inet/src/networklayer/arp -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/tcp_common -I/home/mhankows/Omnet_Workspace/fthis/inet/src/transport/udp -L/home/mhankows/Omnet_Workspace/fthis/inet/out/$(CONFIGNAME)/src -linet -DINET_IMPORT -KINET_PROJ=/home/mhankows/Omnet_Workspace/fthis/inet
 #
 
 # Name of target to be created (-o option)
@@ -21,15 +21,15 @@ INCLUDE_PATH = \
     -I$(INET_PROJ)/src \
     -I$(INET_PROJ)/src/networklayer/icmpv6 \
     -I$(INET_PROJ)/src/world/obstacles \
-    -I$(INET_PROJ)/src/networklayer/manetrouting/base \
     -I$(INET_PROJ)/src/mobility \
     -I$(INET_PROJ)/src/networklayer/contract \
+    -I$(INET_PROJ)/src/networklayer/manetrouting/base \
     -I$(INET_PROJ)/src/networklayer/xmipv6 \
     -I$(INET_PROJ)/src/networklayer/autorouting/ipv4 \
     -I$(INET_PROJ)/src/linklayer/ieee80211/mgmt \
     -I$(INET_PROJ)/src/util \
-    -I$(INET_PROJ)/src/linklayer/common \
     -I$(INET_PROJ)/src/transport/contract \
+    -I$(INET_PROJ)/src/linklayer/common \
     -I$(INET_PROJ)/src/status \
     -I$(INET_PROJ)/src/applications/tcpapp \
     -I$(INET_PROJ)/src/linklayer/radio/propagation \
@@ -55,6 +55,7 @@ INCLUDE_PATH = \
     -I$(INET_PROJ)/src/transport/udp \
     -I. \
     -Icrosslayermischief \
+    -Icrosslayermischief/Matlab_Bridge \
     -Icrosslayermischief/results
 
 # Additional object and library files to link with
@@ -70,7 +71,14 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
-OBJS = $O/crosslayermischief/TCPSensorApp.o $O/crosslayermischief/TCPControllerApp.o
+OBJS = \
+    $O/crosslayermischief/TCPSensorApp.o \
+    $O/crosslayermischief/TCPActuatorApp.o \
+    $O/crosslayermischief/TEPacket.o \
+    $O/crosslayermischief/Matlab_Bridge/OMNeTBridge.o \
+    $O/crosslayermischief/Matlab_Bridge/Sockets.o \
+    $O/crosslayermischief/Matlab_Bridge/OMNeTPk.o \
+    $O/crosslayermischief/Matlab_Bridge/OMNeTPipe.o
 
 # Message files
 MSGFILES =
@@ -151,6 +159,7 @@ clean:
 	$(Q)-rm -f CLM_2 CLM_2.exe libCLM_2.so libCLM_2.a libCLM_2.dll libCLM_2.dylib
 	$(Q)-rm -f ./*_m.cc ./*_m.h
 	$(Q)-rm -f crosslayermischief/*_m.cc crosslayermischief/*_m.h
+	$(Q)-rm -f crosslayermischief/Matlab_Bridge/*_m.cc crosslayermischief/Matlab_Bridge/*_m.h
 	$(Q)-rm -f crosslayermischief/results/*_m.cc crosslayermischief/results/*_m.h
 
 cleanall: clean
@@ -158,17 +167,21 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc crosslayermischief/*.cc crosslayermischief/results/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc crosslayermischief/*.cc crosslayermischief/Matlab_Bridge/*.cc crosslayermischief/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/crosslayermischief/TCPControllerApp.o: crosslayermischief/TCPControllerApp.cc \
-	crosslayermischief/TCPControllerApp.h \
-	$(INET_PROJ)/src/applications/tcpapp/TCPGenericCliAppBase.h \
+$O/crosslayermischief/TCPActuatorApp.o: crosslayermischief/TCPActuatorApp.cc \
+	crosslayermischief/Matlab_Bridge/OMNeTBridge.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPipe.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPk.h \
+	crosslayermischief/Matlab_Bridge/Sockets.h \
+	crosslayermischief/TCPActuatorApp.h \
+	crosslayermischief/TEPacket.h \
+	$(INET_PROJ)/src/applications/tcpapp/GenericAppMsg_m.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/LifecycleOperation.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
-	$(INET_PROJ)/src/base/NodeOperations.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
@@ -177,6 +190,7 @@ $O/crosslayermischief/TCPControllerApp.o: crosslayermischief/TCPControllerApp.cc
 	$(INET_PROJ)/src/transport/contract/TCPSocket.h
 $O/crosslayermischief/TCPSensorApp.o: crosslayermischief/TCPSensorApp.cc \
 	crosslayermischief/TCPSensorApp.h \
+	crosslayermischief/TEPacket.h \
 	$(INET_PROJ)/src/applications/tcpapp/TCPGenericCliAppBase.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -189,4 +203,20 @@ $O/crosslayermischief/TCPSensorApp.o: crosslayermischief/TCPSensorApp.cc \
 	$(INET_PROJ)/src/status/NodeStatus.h \
 	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocket.h
+$O/crosslayermischief/TEPacket.o: crosslayermischief/TEPacket.cc \
+	crosslayermischief/TEPacket.h \
+	$(INET_PROJ)/src/base/INETDefs.h
+$O/crosslayermischief/Matlab_Bridge/OMNeTBridge.o: crosslayermischief/Matlab_Bridge/OMNeTBridge.cc \
+	crosslayermischief/Matlab_Bridge/OMNeTBridge.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPipe.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPk.h \
+	crosslayermischief/Matlab_Bridge/Sockets.h
+$O/crosslayermischief/Matlab_Bridge/OMNeTPipe.o: crosslayermischief/Matlab_Bridge/OMNeTPipe.cc \
+	crosslayermischief/Matlab_Bridge/OMNeTPipe.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPk.h \
+	crosslayermischief/Matlab_Bridge/Sockets.h
+$O/crosslayermischief/Matlab_Bridge/OMNeTPk.o: crosslayermischief/Matlab_Bridge/OMNeTPk.cc \
+	crosslayermischief/Matlab_Bridge/OMNeTPk.h
+$O/crosslayermischief/Matlab_Bridge/Sockets.o: crosslayermischief/Matlab_Bridge/Sockets.cc \
+	crosslayermischief/Matlab_Bridge/Sockets.h
 
