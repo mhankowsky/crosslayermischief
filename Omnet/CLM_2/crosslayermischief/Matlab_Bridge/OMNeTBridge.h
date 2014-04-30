@@ -49,4 +49,7 @@ class OMNeTBridge {
   void setVal(int v, float tv, float simTime);
 };
 
+extern OMNeTBridge controllerBridge;
+extern OMNeTBridge systemBridge;
+
 #endif /* _OMNETBRIDGE_H_ */

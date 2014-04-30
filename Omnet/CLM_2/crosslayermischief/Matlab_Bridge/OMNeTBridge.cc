@@ -8,6 +8,10 @@
 
 #include "OMNeTBridge.h"
 
+/* Build bridges */
+OMNeTBridge controllerBridge(BRIDGETYPE_CONTROL);
+OMNeTBridge systemBridge(BRIDGETYPE_SYSTEM);
+
 /* Constructor */
 OMNeTBridge::OMNeTBridge(int cType) {
   /* Local vars */
