@@ -29,7 +29,7 @@ import inet.world.radio.ChannelControl;
 network teNetwork
 {
     parameters:
-        int numSensors=10;
+        int numSensors = 10;
 
     types:
         channel C extends DatarateChannel
@@ -55,7 +55,7 @@ network teNetwork
             @display("p=300,250");
         }
         internetCloud: InternetCloud {
-            @display("p=200,250");
+            @display("p=205,251");
         }
 
         actU1: Actuator {
@@ -109,13 +109,16 @@ network teNetwork
     connections:
 
         //for i=0..numSenders-1 {
-        //        factoryRouter.pppg++ <--> C <--> internet.pppg++;
-        //        sensors[i].ethg++ <--> Eth100M <--> factoryRouter.ethg++;
+          //      factoryRouter.pppg++ <--> C <--> internet.pppg++;
+            //    sensors[i].ethg++ <--> Eth100M <--> factoryRouter.ethg++;
         //}
-      //  factoryBridge.ethg++ <--> Eth100M <--> factoryAccessPoint.ethg++;
-       // factoryBridge.pppg++ <--> C <--> internetCloud.pppg++;
-       // controller.pppg++ <--> internetCloud.pppg++;
-		factoryAccessPoint.ethg++ <--> Eth100M <--> controller.ethg++;
+
+
+        factoryBridge.ethg++ <--> Eth100M <--> factoryAccessPoint.ethg++;
+        factoryBridge.pppg++ <--> C <--> internetCloud.pppg++;
+        controller.pppg++ <--> internetCloud.pppg++;
+        //factoryAccessPoint.ethg++ <--> Eth100M <--> controller.ethg++;
+        
 }
 
 

@@ -54,6 +54,8 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
     /** Redefined. */
     virtual void socketEstablished(int connId, void *yourPtr);
 
+    virtual void sendPacket();
+
     /** Redefined. */
     virtual void socketDataArrived(int connId, void *yourPtr, cPacket *msg, bool urgent);
 
