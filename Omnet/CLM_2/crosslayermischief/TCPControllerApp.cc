@@ -13,7 +13,7 @@
 
 
 #include "TCPControllerApp.h"
-
+#include "TEPacket.h"
 #include "GenericAppMsg_m.h"
 #include "IPvXAddressResolver.h"
 
@@ -21,8 +21,6 @@
 simsignal_t TCPControllerApp::connectSignal = SIMSIGNAL_NULL;
 simsignal_t TCPControllerApp::rcvdPkSignal = SIMSIGNAL_NULL;
 simsignal_t TCPControllerApp::sentPkSignal = SIMSIGNAL_NULL;
-
-OMNeTBridge bridge (2);
 
 void TCPControllerApp::initialize(int stage)
 {
@@ -133,7 +131,7 @@ void TCPControllerApp::socketDataArrived(int, void *, cPacket *msg, bool)
     bytesRcvd += msg->getByteLength();
     emit(rcvdPkSignal, msg);
 
-    TEPacket te_msg = dynamic_cast<TEPacket*>(msg);
+    TEPacket* te_msg = dynamic_cast<TEPacket*>(msg);
 
     delete msg;
 }

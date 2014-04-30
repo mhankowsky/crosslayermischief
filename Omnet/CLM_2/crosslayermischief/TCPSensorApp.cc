@@ -16,19 +16,14 @@
 //
 
 
-<<<<<<< HEAD
 #include "TEPacket.h"
-=======
-#include "GenericAppMsg_m.h"
-#include "GenericDataPacket_m.h"
->>>>>>> d0c2962736fc21090dc4fe03e2de9696df2060a2
 #include "TCPSensorApp.h"
 #include "NodeOperations.h"
 #include "ModuleAccess.h"
 
 #define MSGKIND_CONNECT  0
 #define MSGKIND_SEND     1
-OMNeTBridge bridge (2);
+
 
 Define_Module(TCPSensorApp);
 
@@ -52,6 +47,8 @@ void TCPSensorApp::initialize(int stage)
     earlySend = false;  // TBD make it parameter
     WATCH(numRequestsToSend);
     WATCH(earlySend);
+
+    //bridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
 
     // FIXME
     sensorName = "F this project";
@@ -105,7 +102,8 @@ void TCPSensorApp::sendPacket()
     float matlabData = 1.5252;
     char packetName[50];
     sprintf(packetName, "%s=%f", sensorName, matlabData);
-    GenericAppMsg *msg = new GenericAppMsg(packetName, 1);
+    TEPacket *msg = new TEPacket();
+    //GenericAppMsg *msg = new GenericAppMsg(packetName, 1);
 
     //GenericAppMsg *msg2 = new GenericAppMsg("data");
     //GenericDataPacket *msg;// = new GenericDataPacket();

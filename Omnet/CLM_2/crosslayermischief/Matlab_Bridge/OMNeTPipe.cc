@@ -55,7 +55,7 @@ int OMNeTPipe::sendPk(OMNeTPk pk) {
 		t = pk.getType(pk.getName(i));
 		switch (t) {
 			case TYPE_INT:
-				x = reinterpret_cast<int>(pk.getVal(pk.getName(i)));
+				x = (int)reinterpret_cast<long>(pk.getVal(pk.getName(i)));
 				sprintf(buf, "%c%s%c%i%c%i",
 				MSG_FIELDSEP,
 				pk.getName(i),

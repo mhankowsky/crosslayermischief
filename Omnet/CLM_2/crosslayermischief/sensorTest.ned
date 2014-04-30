@@ -49,9 +49,9 @@ network sensorTest
             @display("p=100,250");
         }
         
-        internetCloud: InternetCloud {
-            @display("p=200,250");
-        }
+        //internetCloud: InternetCloud {
+        //    @display("p=200,250");
+        //}
 
         // TE Access Point
         factoryAccessPoint: AccessPoint {
@@ -69,14 +69,16 @@ network sensorTest
         actU1: Actuator {
             @display("p=500,100");
         }
-		factoryRouter: Router;
+		//factoryRouter: Router;
+		//controlRouter: Router;
     connections:
         //factoryRouter.pppg++ <--> C <--> controller.pppg++;
-        factoryRouter.pppg++ <--> C <--> internetCloud.pppg++;
-        controller.pppg++ <--> C <--> internetCloud.pppg++;
-        factoryAccessPoint.ethg++ <--> Eth100M <--> factoryRouter.ethg++;
-        //controller.ethg++ <--> Eth100M <--> factoryAccessPoint.ethg++;
-        
+        //factoryRouter.pppg++ <--> C <--> internetCloud.pppg++;
+        //controller.ethg++ <--> Eth100M <--> controlRouter.ethg++;
+        //controlRouter.pppg++ <--> C <--> internetCloud.pppg++;
+        //factoryAccessPoint.ethg++ <--> Eth100M <--> factoryRouter.ethg++;
+        controller.ethg++ <--> Eth100M <--> factoryAccessPoint.ethg++;
+        //controller.pppg++ <--> C <--> internetCloud.pppg++;
 }
 
 

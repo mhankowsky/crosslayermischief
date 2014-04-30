@@ -28,8 +28,6 @@ simsignal_t TCPActuatorApp::sentPkSignal = SIMSIGNAL_NULL;
 
 void TCPActuatorApp::initialize(int stage)
 {
-
-	bridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
     if (stage == 0)
     {
         int localPort = par("localPort");
@@ -114,7 +112,7 @@ void TCPActuatorApp::handleMessage(cMessage *msg)
            //Pass data to the Matlab Model
            int matlabID = appmsg->getSourceId();
            float matlabData = appmsg->getData();
-           bridge.setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
+           //bridge.setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
 
 
 
