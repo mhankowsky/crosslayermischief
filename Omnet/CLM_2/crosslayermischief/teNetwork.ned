@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
-package clm_2.crosslayermischief;
+package CLM_2.crosslayermischief;
 
 
 import inet.networklayer.autorouting.ipv4.IPv4NetworkConfigurator;

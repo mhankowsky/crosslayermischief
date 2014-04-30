@@ -16,7 +16,7 @@
 //
 
 
-package clm_2.crosslayermischief;
+package CLM_2.crosslayermischief;
 import inet.applications.ITCPApp;
 
 

@@ -1,3 +1,3 @@
-package clm_2;
+package CLM_2;
 
 @license(LGPL);
