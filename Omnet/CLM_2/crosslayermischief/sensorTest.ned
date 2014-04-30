@@ -11,48 +11,59 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
+//
+package CLM_2.crosslayermischief;
 
-package CrossLayerMischief_New;
 
 import inet.networklayer.autorouting.ipv4.IPv4NetworkConfigurator;
 import inet.nodes.ethernet.Eth100M;
 import inet.nodes.inet.Router;
 import inet.nodes.inet.StandardHost;
+import inet.nodes.inet.WirelessHost;
 import inet.nodes.internetcloud.InternetCloud;
 import ned.DatarateChannel;
+import inet.nodes.inet.AdhocHost;
+import inet.nodes.wireless.AccessPoint;
+import inet.world.radio.ChannelControl;
 
-
-
-network FactoryAndController
+network sensorTest
 {
-    parameters:
-        int numSensor;
-
     types:
         channel C extends DatarateChannel
         {
             delay = 20ms;
             datarate = 5Mbps;
         }
+        channel ethline extends DatarateChannel
+        {
+            delay = 50ns;
+            datarate = 100Mbps;
+        }
     submodules:
         configurator: IPv4NetworkConfigurator {
             parameters:
-                @display("p=61,163");
+                @display("p=50,50");
         }
 
-		FactorySensor[numSensor]:Sensor;
-        FactoryRouter: Router;
-        FactoryPC: StandardHost;
+		server: StandardHost {
+		 		@display("p=100,100");   
+		}
 
-        ControllerRouter: Router;
-        Controller: StandardHost;
+        // TE Access Point
+        factoryAccessPoint: AccessPoint {
+            @display("p=400,250");
+        }
 
-        internet: InternetCloud;
+        senF1: Sensor {
+            @display("p=600,50");
+        }
+
+        channelControl: ChannelControl {
+            @display("p=115,165");
+        }
+
     connections:
-        ControllerRouter.pppg++ <--> C <--> internet.pppg++;
-        Controller.ethg++ <--> Eth100M <--> ControllerRouter.ethg++;
-
-    	FactoryRouter.pppg++ <--> C <--> internet.pppg++;
-        FactoryPC.ethg++ <--> Eth100M <--> FactoryRouter.ethg++;
+        server.ethg++ <--> ethline <--> factoryAccessPoint.ethg++;
 }
+
+
