@@ -26,10 +26,10 @@ Define_Module(TCPActuatorApp);
 simsignal_t TCPActuatorApp::rcvdPkSignal = SIMSIGNAL_NULL;
 simsignal_t TCPActuatorApp::sentPkSignal = SIMSIGNAL_NULL;
 
-OMNeTBridge bridge (2);
-
 void TCPActuatorApp::initialize(int stage)
 {
+
+	bridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
     if (stage == 0)
     {
         int localPort = par("localPort");
