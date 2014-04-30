@@ -1,4 +1,5 @@
 *.swp
 .cproject
-
+*results
+*.vec
 Omnet/CLM_2/out
