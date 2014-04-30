@@ -64,6 +64,8 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
     virtual void socketFailure(int connId, void *yourPtr, int code);
 
     virtual bool isNodeUp();
+
+    virtual void sendPacket();
 };
 
 #endif

@@ -1,3 +1,4 @@
 # Partial Tkenv config file -- see $HOME/.tkenvrc as well
-inspector "teNetwork" "teNetwork" "2" "607x327+2+26:normal"
+inspector "teNetwork" "teNetwork" "2" "607x327+0+26:normal"
+inspector "teNetwork.senF1" "Sensor" "3" "1119x656+2+52:normal"
 

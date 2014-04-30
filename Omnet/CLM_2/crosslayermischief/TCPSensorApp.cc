@@ -16,6 +16,7 @@
 //
 
 
+#include "GenericDataPacket_m.h"
 #include "TCPSensorApp.h"
 #include "NodeOperations.h"
 #include "ModuleAccess.h"
@@ -100,37 +101,34 @@ void TCPSensorApp::sendRequest()
 {
      EV << "sending request, " << numRequestsToSend-1 << " more to go\n";
 
-     long requestLength = par("requestLength");
-     long replyLength = par("replyLength");
-     if (requestLength < 1)
-         requestLength = 1;
-     if (replyLength < 1)
-         replyLength = 1;
-
-     sendPacket(requestLength, replyLength);
+     sendPacket();
 }
 
 void TCPSensorApp::sendPacket()
 {
     //TODO Read from MATLAB
     // READ
-    char * matlabData = "data";
+    float matlabData = 1.5252;
 
-    GenericAppMsg *msg = new GenericAppMsg(matlabData);
+    GenericDataPacket *msg = new GenericDataPacket("F_1");
+    msg->setData(matlabData);
+    msg->setSourceId(1);
+
     // Send packet
-    EV << "sending " << numBytes << " bytes, expecting " << expectedReplyBytes
-          << (serverClose ? ", and server should close afterwards\n" : "\n");
+    // TODO: Fix the length of the packet
+    int numBytes = 7;
+    int expectedReplyBytes = 0;
 
+    EV << "sending " << numBytes << " bytes, expecting " << expectedReplyBytes << "\n";
 
-       msg->setByteLength(strlen(matlabData));
-       msg->setExpectedReplyLength(expectedReplyBytes);
-       msg->setServerClose(serverClose);
+    msg->setByteLength(numBytes);
+    msg->setExpectedReplyLength(expectedReplyBytes);
 
-       emit(sentPkSignal, msg);
-       socket.send(msg);
+    emit(sentPkSignal, msg);
+    socket.send(msg);
 
-       packetsSent++;
-       bytesSent += numBytes;
+    packetsSent++;
+    bytesSent += numBytes;
 }
 
 void TCPSensorApp::handleTimer(cMessage *msg)
