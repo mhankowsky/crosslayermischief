@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package crosslayermischief_new;
+package CrossLayerMischief_New;
 
 
 import inet.applications.ethernet.EtherAppCli;
