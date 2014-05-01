@@ -13,8 +13,8 @@
 #define _OMNETBRIDGE_H_
 
 /* Variables */
-#define BRIDGETYPE_CONTROL 1
-#define BRIDGETYPE_SYSTEM  2
+#define BRIDGETYPE_CONTROL 2
+#define BRIDGETYPE_SYSTEM  1
 #define PORT_CONTROL       18100
 #define PORT_SYSTEM        18240       
 
@@ -49,8 +49,10 @@ class OMNeTBridge {
   void setVal(int v, float tv, float simTime);
 };
 
-extern OMNeTBridge controlBridge;
-extern OMNeTBridge systemBridge;
+extern int controlBridgeMade;
+extern int systemBridgeMade;
+extern OMNeTBridge* controlBridge;
+extern OMNeTBridge* systemBridge;
 
 
 #endif /* _OMNETBRIDGE_H_ */

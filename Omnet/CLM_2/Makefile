@@ -190,6 +190,10 @@ $O/crosslayermischief/TCPActuatorApp.o: crosslayermischief/TCPActuatorApp.cc \
 	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocket.h
 $O/crosslayermischief/TCPControllerApp.o: crosslayermischief/TCPControllerApp.cc \
+	crosslayermischief/Matlab_Bridge/OMNeTBridge.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPipe.h \
+	crosslayermischief/Matlab_Bridge/OMNeTPk.h \
+	crosslayermischief/Matlab_Bridge/Sockets.h \
 	crosslayermischief/TCPControllerApp.h \
 	crosslayermischief/TEPacket.h \
 	$(INET_PROJ)/src/base/ByteArray.h \

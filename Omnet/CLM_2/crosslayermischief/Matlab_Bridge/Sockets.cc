@@ -21,6 +21,10 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #ifdef WIN32
 #include <winsock.h>         // For socket(), connect(), send(), and recv()
@@ -197,6 +201,7 @@ void CommunicatingSocket::connect(const string &foreignAddress,
 
   // Try to connect to the given port
   if (::connect(sockDesc, (sockaddr *) &destAddr, sizeof(destAddr)) < 0) {
+      cout << " ERROR: " << errno << endl;
     throw SocketException("Connect failed (connect())", true);
   }
 }

@@ -19,6 +19,7 @@ OMNeTPipe::OMNeTPipe(char* host, int port) {
 	/* Local vars */
 	char c;
 	string sHost(host);
+	printf("%s:%d\n", host, port);
 	sk = new TCPSocketReal(sHost, port);
 
 	/* Read synchronizing byte */

@@ -57,6 +57,9 @@ network teNetwork
         //internetCloud: InternetCloud {
         //    @display("p=205,251");
         //}
+        factoryBridge: Router {
+            @display("p=300,250");
+        }
 
         actU1: Actuator {
             @display("p=500,100");
@@ -116,7 +119,8 @@ network teNetwork
 
         //factoryBridge.ethg++ <--> Eth100M <--> factoryAccessPoint.ethg++;
         //factoryBridge.pppg++ <--> C <--> internetCloud.pppg++;
-        //controller.pppg++ <--> internetCloud.pppg++;
+        //controller.pppg++ <--> C <--> internetCloud.pppg++;
+        
         factoryAccessPoint.ethg++ <--> Eth100M <--> controller.ethg++;
         
 }

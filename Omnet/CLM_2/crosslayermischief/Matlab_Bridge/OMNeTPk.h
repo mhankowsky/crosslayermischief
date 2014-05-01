@@ -40,6 +40,7 @@ public:
 	void addVal(char* name, void* val, int type);
 	char* getName(int index);
 	void* getVal(char* name);
+	void* getVal(int i);
 	int getType(char* name);
 	char* getHeader(void);
 	int getSize(void);

@@ -46,11 +46,19 @@ void TCPControllerApp::initialize(int stage)
         matlabID = par("matlabID");
         matlabType = par("matlabType");
         if(matlabType == BRIDGETYPE_CONTROL){
-              bridge = &controlBridge;
-          }
-          else{
-              bridge = &systemBridge;
-          }
+            if(controlBridgeMade == 0) {
+                controlBridge = new OMNeTBridge(BRIDGETYPE_CONTROL);
+                controlBridgeMade = 1;
+            }
+            bridge = controlBridge;
+        }
+        else{
+            if(systemBridgeMade == 0) {
+                systemBridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
+                systemBridgeMade = 1;
+            }
+            bridge = systemBridge;
+        }
 
         nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
     }
@@ -161,14 +169,23 @@ void TCPControllerApp::handleMessage(cMessage *msg)
         //TODO: Read in packet from sensor
         EV << "GAAAAAAAAAAAAAAAAAAAAAAAAAAH " << pkt->getName() << " = " << pkt->getKind() << endl;
 
-        int matlabID;
-        float matlabData;
+        int matlabID = 0;
+        float matlabData = 0;
 
+        cout << pkt->getName() << " : " << pkt->getSenderModuleId() << " : " << pkt->getSenderGateId() << endl;
+
+        //if (strcmp(pkt->getSenderModule()->getParentModule()->getName(),"controller") != 0)
+        //    cout << pkt->getSenderModule()->getParentModule()->getName() << endl;
+
+        cout << "A" << matlabType << endl;
         //Get the sensor values from the Packet, write those to the Bridge
-        sscanf(pkt->getName(), "%d=%f", matlabID, matlabData);
-        bridge->setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
-
-
+        if (strcmp(pkt->getName(), "data") != 0) {
+            cout << "B" << endl;
+            sscanf(pkt->getName(), "%d=%f", &matlabID, &matlabData);
+            cout << matlabID << " : " << matlabData << endl;
+            bridge->setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
+        }
+        cout << "C" << endl;
     }
     else
     {

@@ -60,11 +60,20 @@ void TCPSensorApp::initialize(int stage)
 
 
     if(matlabType == BRIDGETYPE_CONTROL){
-        bridge = &controlBridge;
+        if(controlBridgeMade == 0) {
+            controlBridge = new OMNeTBridge(BRIDGETYPE_CONTROL);
+            controlBridgeMade = 1;
+        }
+        bridge = controlBridge;
     }
     else{
-        bridge = &systemBridge;
+        if(systemBridgeMade == 0) {
+            systemBridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
+            systemBridgeMade = 1;
+        }
+        bridge = systemBridge;
     }
+
     if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
         error("Invalid startTime/stopTime parameters");
 
@@ -110,12 +119,13 @@ void TCPSensorApp::sendPacket()
     //float matlabData = bridge.getVal(1, (float) SIMTIME_DLB(simTime()));
 
     float matlabData = bridge->getVal(matlabID, (float) SIMTIME_DBL(simTime()));
+    cout << "ORIGINAL READ DATA!: " << matlabData << endl;
 
     char packetName[50];
     sprintf(packetName, "%d=%f", matlabID, matlabData);
     TEPacket *msg = new TEPacket();
     msg->setName(packetName);
-    msg->setKind(1);
+    msg->setKind(TCP_I_DATA);
 
 
     // Send packet

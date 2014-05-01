@@ -85,6 +85,10 @@ void* OMNeTPk::getVal(char* name) {
 	return vals[i];
 }
 
+void* OMNeTPk::getVal(int i) {
+    return vals[i];
+}
+
 /* getType
  * @brief gets the type of the variable
  *
