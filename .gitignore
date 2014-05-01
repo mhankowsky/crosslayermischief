@@ -2,4 +2,5 @@
 .cproject
 *results
 *.vec
+*.vci
 Omnet/CLM_2/out
