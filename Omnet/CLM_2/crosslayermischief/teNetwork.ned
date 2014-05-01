@@ -36,6 +36,7 @@ network teNetwork
         {
             delay = 20ms;
             datarate = 5Mbps;
+            per = 0.05;
         }
     submodules:
         configurator: IPv4NetworkConfigurator {
