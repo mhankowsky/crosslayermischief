@@ -109,7 +109,7 @@ void TCPSensorApp::sendPacket()
     // READ
     //float matlabData = bridge.getVal(1, (float) SIMTIME_DLB(simTime()));
 
-    float matlabData = bridge->getVal(matlabID, (float) SIMTIME_DLB(simTime()));
+    float matlabData = bridge->getVal(matlabID, (float) SIMTIME_DBL(simTime()));
 
     char packetName[50];
     sprintf(packetName, "%d=%f", matlabID, matlabData);

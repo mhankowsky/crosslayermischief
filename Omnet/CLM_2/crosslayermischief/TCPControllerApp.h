@@ -18,6 +18,7 @@
 #include "ILifecycle.h"
 #include "NodeStatus.h"
 #include "TCPSocket.h"
+#include "OMNeTBridge.h"
 
 /**
  * Accepts any number of incoming connections, and sends back whatever
@@ -52,6 +53,7 @@ class INET_API TCPControllerApp : public cSimpleModule, public ILifecycle
     virtual void sendDown(cMessage *msg);
     virtual void startListening();
     virtual void stopListening();
+    virtual void initialize(int stage);
 
   protected:
     virtual int numInitStages() const { return 2; }

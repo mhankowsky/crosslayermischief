@@ -48,9 +48,9 @@ void TCPControllerApp::initialize(int stage)
         if(matlabType == BRIDGETYPE_CONTROL){
               bridge = &controlBridge;
           }
-        else{
+          else{
               bridge = &systemBridge;
-        }
+          }
 
         nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
     }
@@ -166,7 +166,8 @@ void TCPControllerApp::handleMessage(cMessage *msg)
 
         //Get the sensor values from the Packet, write those to the Bridge
         sscanf(pkt->getName(), "%d=%f", matlabID, matlabData);
-        bridge->setVal(matlabID, matlabData, SIMTIME_DBL(simeTime()));
+        bridge->setVal(matlabID, matlabData, SIMTIME_DBL(simTime()));
+
 
     }
     else
