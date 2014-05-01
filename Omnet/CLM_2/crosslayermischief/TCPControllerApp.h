@@ -30,6 +30,8 @@ class INET_API TCPControllerApp : public cSimpleModule, public ILifecycle
     double echoFactor;
 
     TCPSocket socket;
+    TCPSocket act1_socket;
+
     NodeStatus *nodeStatus;
 
     long bytesRcvd;

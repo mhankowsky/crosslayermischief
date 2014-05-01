@@ -100,6 +100,8 @@ simple TCPSensorApp like ITCPApp
         double startTime @unit(s) = default(1s); // time first session begins
         double stopTime @unit(s) = default(-1s);  // time of finishing sending, negative values mean forever
         double delay @unit(s) = default(100ms);  
+       	int matlabID = default(-1); //The ID of the valiable 
+       	int matlabType = default(-1); //1 for Controller, 2 for system 
         
         
         volatile int numRequestsPerSession = default(1);  // number of requests sent per session
