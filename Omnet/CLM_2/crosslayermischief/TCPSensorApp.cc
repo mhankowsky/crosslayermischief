@@ -48,13 +48,18 @@ void TCPSensorApp::initialize(int stage)
     WATCH(numRequestsToSend);
     WATCH(earlySend);
 
-    //bridge = new OMNeTBridge(BRIDGETYPE_SYSTEM);
 
     // FIXME
     sensorName = "F this project";
     delay = par("delay");
     startTime = par("startTime");
     stopTime = par("stopTime");
+    matlabID = par("matlabID");
+    matlabType = par("matlabType");
+
+
+    bridge = new OMNeTBridge(matlabType);
+
     if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
         error("Invalid startTime/stopTime parameters");
 
@@ -99,19 +104,14 @@ void TCPSensorApp::sendPacket()
     // READ
     //float matlabData = bridge.getVal(1, (float) SIMTIME_DLB(simTime()));
 
-    float matlabData = 1.5252;
+    float matlabData = bridge->getVal(matlabID, (float) SIMTIME_DLB(simTime()));
+
     char packetName[50];
-    sprintf(packetName, "%d=%f", 1, matlabData);
+    sprintf(packetName, "%d=%f", matlabID, matlabData);
     TEPacket *msg = new TEPacket();
     msg->setName(packetName);
     msg->setKind(1);
-    //GenericAppMsg *msg = new GenericAppMsg(packetName, 1);
 
-    //GenericAppMsg *msg2 = new GenericAppMsg("data");
-    //GenericDataPacket *msg;// = new GenericDataPacket();
-    //msg = new GenericDataPacket();
-    //msg->setData(matlabData);
-    //msg->setSourceId(1);
 
     // Send packet
     // TODO: Fix the length of the packet

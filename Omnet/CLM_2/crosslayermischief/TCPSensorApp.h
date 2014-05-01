@@ -35,6 +35,8 @@ class INET_API TCPSensorApp : public TCPGenericCliAppBase, public ILifecycle
     char* sensorName;
     simtime_t delay;
     OMNeTBridge* bridge;
+    int matlabID;
+    int matlabType;
 
     /** Utility: sends a request to the server */
     virtual void sendRequest();

@@ -42,6 +42,11 @@ void TCPControllerApp::initialize(int stage)
         socket.setOutputGate(gate("tcpOut"));
         socket.readDataTransferModePar(*this);
 
+
+        matlabID = par("matlabID");
+        matlabType = par("matlabType");
+        bridge = new OMNeTBridge(matlabType);
+
         nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
     }
     else if (stage == 1)
@@ -151,7 +156,12 @@ void TCPControllerApp::handleMessage(cMessage *msg)
         //TODO: Read in packet from sensor
         EV << "GAAAAAAAAAAAAAAAAAAAAAAAAAAH " << pkt->getName() << " = " << pkt->getKind() << endl;
 
-        //TODO: Write sensor data to controller
+        int matlabID;
+        float matlabData;
+
+        //Get the sensor values from the Packet, write those to the Bridge
+        sscanf(pkt->getName(), "%d=%f", matlabID, matlabData);
+        bridge->setVal(matlabID, matlabData, SIMTIME_DBL(simeTime()));
 
     }
     else

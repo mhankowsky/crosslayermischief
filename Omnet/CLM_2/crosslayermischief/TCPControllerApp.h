@@ -37,6 +37,10 @@ class INET_API TCPControllerApp : public cSimpleModule, public ILifecycle
     long bytesRcvd;
     long bytesSent;
 
+    OMNeTBridge* bridge;
+    int matlabID;
+    int matlabType;
+
     static simsignal_t rcvdPkSignal;
     static simsignal_t sentPkSignal;
 
@@ -50,7 +54,6 @@ class INET_API TCPControllerApp : public cSimpleModule, public ILifecycle
     virtual void stopListening();
 
   protected:
-    virtual void initialize(int stage);
     virtual int numInitStages() const { return 2; }
     virtual void handleMessage(cMessage *msg);
     virtual void finish();

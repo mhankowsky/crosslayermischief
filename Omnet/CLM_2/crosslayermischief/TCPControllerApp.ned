@@ -71,6 +71,8 @@ simple TCPControllerApp like ITCPApp
         double echoFactor = default(1);
         double echoDelay @unit(s) = default(0s);
         string dataTransferMode @enum("bytecount","object","bytestream") = default("bytecount");
+        int matlabID = default(-1); //The ID of the valiable 
+       	int matlabType = default(-1); //1 for Controller, 2 for system 
         @display("i=block/app");
         @signal[sentPk](type=cPacket);
         @signal[rcvdPk](type=cPacket);
