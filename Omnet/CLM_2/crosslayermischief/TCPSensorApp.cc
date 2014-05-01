@@ -101,8 +101,10 @@ void TCPSensorApp::sendPacket()
 
     float matlabData = 1.5252;
     char packetName[50];
-    sprintf(packetName, "%s=%f", sensorName, matlabData);
+    sprintf(packetName, "%d=%f", 1, matlabData);
     TEPacket *msg = new TEPacket();
+    msg->setName(packetName);
+    msg->setKind(1);
     //GenericAppMsg *msg = new GenericAppMsg(packetName, 1);
 
     //GenericAppMsg *msg2 = new GenericAppMsg("data");
