@@ -45,7 +45,12 @@ void TCPControllerApp::initialize(int stage)
 
         matlabID = par("matlabID");
         matlabType = par("matlabType");
-        bridge = new OMNeTBridge(matlabType);
+        if(matlabType == BRIDGETYPE_CONTROL){
+              bridge = &controlBridge;
+          }
+        else{
+              bridge = &systemBridge;
+        }
 
         nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
     }

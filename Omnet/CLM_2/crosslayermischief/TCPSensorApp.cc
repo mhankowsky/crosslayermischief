@@ -27,6 +27,7 @@
 
 Define_Module(TCPSensorApp);
 
+
 TCPSensorApp::TCPSensorApp()
 {
     timeoutMsg = NULL;
@@ -58,8 +59,12 @@ void TCPSensorApp::initialize(int stage)
     matlabType = par("matlabType");
 
 
-    bridge = new OMNeTBridge(matlabType);
-
+    if(matlabType == BRIDGETYPE_CONTROL){
+        bridge = &controlBridge;
+    }
+    else{
+        bridge = &systemBridge;
+    }
     if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
         error("Invalid startTime/stopTime parameters");
 
