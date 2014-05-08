@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  7 MAY 2014 20:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  7 MAY 2014 20:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -124,11 +124,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen117
 \Gin@req@width=\dimen118
 )
-(./crosslayer.aux
-
-LaTeX Warning: Label `fig:system' multiply defined.
-
-)
+(./crosslayer.aux)
 \openout1 = `crosslayer.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 352.
@@ -143,7 +139,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 352.
 LaTeX Font Info:    ... okay on input line 352.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 352.
 LaTeX Font Info:    ... okay on input line 352.
- (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count92
 \scratchdimen=\dimen119
@@ -222,14 +219,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 <figs/system.png, id=1, 562.7424pt x 302.0886pt>
 File: figs/system.png Graphic file (type png)
  <use figs/system.png>
-Package pdftex.def Info: figs/system.png used on input line 3.
+Package pdftex.def Info: figs/system.png used on input line 25.
 (pdftex.def)             Requested size: 419.28139pt x 225.08162pt.
 )
 (./impl.tex <figs/network.png, id=3, 342.5598pt x 258.2448pt>
 File: figs/network.png Graphic file (type png)
 
 <use figs/network.png>
-Package pdftex.def Info: figs/network.png used on input line 3.
+Package pdftex.def Info: figs/network.png used on input line 24.
 (pdftex.def)             Requested size: 419.28139pt x 316.10635pt.
 ) (./chall.tex) (./eval.tex) (./attacks.tex)
 (./discuss.tex) (./concl.tex)
@@ -252,17 +249,16 @@ Before submitting the final camera ready copy, remember to:
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
-
 ]
 [2 <./figs/system.png> <./figs/network.png>] (./crosslayer.aux)
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
  2231 strings out of 493315
  35594 string characters out of 6137904
- 94216 words of memory out of 5000000
+ 97177 words of memory out of 5000000
  5647 multiletter control sequences out of 15000+600000
  38728 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
@@ -273,7 +269,7 @@ xlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on crosslayer.pdf (2 pages, 231676 bytes).
+Output written on crosslayer.pdf (2 pages, 235346 bytes).
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  23 compressed objects within 1 object stream
