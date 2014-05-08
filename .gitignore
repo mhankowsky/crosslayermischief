@@ -5,3 +5,6 @@
 *.vci
 *.o
 Omnet/CLM_2/out
+
+*.log
+*.aux
