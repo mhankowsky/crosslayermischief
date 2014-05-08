@@ -1,4 +1,12 @@
 \section{Implementation}
+
+\begin{figure}[ht!]
+        \centering
+		\includegraphics[width=90mm]{figs/network.png}
+        \caption{Network Diagram}
+        \label{fig:network}        
+\end{figure}
+
 \subsection{Simulated Network}
 
 The network of our simulation is designed to give a real-time nature to the data transfer between the Tennessee Eastman(TE) physical simulation and the TE Controller. Both the controller and simulation are written in Matlab and connected to our network with the OMNeTBridge Class. 
@@ -6,19 +14,32 @@ The network of our simulation is designed to give a real-time nature to the data
 
 \subsection{Controller}
 
+The controller is essentially a server module that takes in signals from each sensor, pulls the relevant data from the MATLAB simulation and sends it to the MATLAB based controller. This process allows us to accurately simulate the network passing packets while avoiding the headache that is implementing actual data passing packets in OMNeT. Th
 
 
 \subsubsection{Actuator}
 
-The actuator acts as a server which receives an update packet from the controller, grabs its appropriate data from the controller OMNeTBridge and then passes it to the correct function. 
+The actuator acts as a server which receives an update packet from the controller, grabs its 
+appropriate data from the controller OMNeTBridge and then passes it to the correct function. 
+When these modules receive a data packet from the Controller IP address they then grab the current data from the Controller Bridge and pass it to the Simulation Bridge. 
+
+It is again a very simple module where most of the TCP application is focused on receiving a certain type of packet. These modules are also based on the INET "StandardHost" and are connected to the rest of the network wirelessly using 802.11 Wifi cards. These modules also lacked ideal implementation due to INET messages not being able to easily accept custom fields.  
 
 \subsubsection{Sensor}
 
 
-The Sensor is a relatively simple module that sends an update signal based on a timer. This is to model the refresh rate of most sensors. We have assumed that all sensors and network controllable and are able to tirelessly connect to a local access point via 802.11 Wireless LAN. 
+The Sensor is a relatively simple module that sends an update signal based on a timer. This 
+is to model the refresh rate of most sensors. We have assumed that all sensors and network 
+controllable and are able to tirelessly connect to a local access point via 802.11 Wireless 
+LAN. 
 
-These modules send a TCP packet to a known IP address which in turn triggers the controller to update. This is a non-ideal method of updating as it does not allow correct implementation of attacking the data on the network. Ideally INET's TCP packets would allow us to send data to them, however as some modules are currently implemented deep copies are not done of messages or inappropriate casts are used. Future work should be planned to modify these modules or find a more correct
-implementation of INET messages that allow custom data fields to be created and sent. 
+These modules send a TCP packet to a known IP address which in turn triggers the controller 
+to update. This is a non-ideal method of updating as it does not allow correct implementation 
+of attacking the data on the network. Ideally INET's TCP packets would allow us to send data 
+to them, however as some modules are currently implemented deep copies are not done of 
+messages or inappropriate casts are used. Future work should be planned to modify these 
+modules or find a more correct implementation of INET messages that allow custom data fields 
+to be created and sent. 
 
 
 \subsection{MATLAB Simulation}
@@ -27,9 +48,9 @@ implementation of INET messages that allow custom data fields to be created and 
   between C++ and MATLAB as explained below.
 
 \subsubsection{Tennessee Eastman}
-  We buit a custom simplified Tennesee Eastman model in MATLAB.  
+  We built a custom simplified Tennessee Eastman model in MATLAB.  
   This was based off of a preexisting FORTRAN model, but was
-  reimplemented in MATLAB for ease of use and reduced complexity 
+  re-implemented in MATLAB for ease of use and reduced complexity 
   \citation{Ricker}.  Our model contains variable vectors, an
   input vector, a state vector, and an output vector. Then by 
   using the equations provided in Ricker\citation{Ricker}, the
@@ -38,7 +59,7 @@ implementation of INET messages that allow custom data fields to be created and 
   OMNeT++ via the MATLAB bridge.
 
   On the other side of the network, we also implemented a 
-  controller in MATLAB for the Tennesee Eastman system.  This
+  controller in MATLAB for the Tennessee Eastman system.  This
   used steady state calculations to determine the optimal controls.
   The controller would input the output vector from the Tennessee
   Eastman system via the MATLAB bridge, and output a set of input
@@ -47,9 +68,3 @@ implementation of INET messages that allow custom data fields to be created and 
 
 \subsection{C++ to MATLAB Bridge}
 
-\begin{figure*}
-        \centering
-		\includegraphics[width=0.8\textwidth]{figs/network.png}
-        \caption{Network Diagram.}
-        \label{fig:network}        
-\end{figure*}
