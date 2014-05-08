@@ -14,7 +14,9 @@
 \subsubsection{Factory Bridge}
 
 \subsection{MATLAB Simulation}
-  Our MATLAB 
+  Our MATLAB both simulated a system and a controler of the
+  Tennessee Eastman problem, and used a custom packet interface
+  between C++ and MATLAB as explained below.
 
 \subsubsection{Tennessee Eastman}
   We buit a custom simplified Tennesee Eastman model in MATLAB.  
@@ -26,6 +28,14 @@
   simulation simply takes in the input vector from OMNeT++, and
   outputs the output vector, which includes the sensor data, to
   OMNeT++ via the MATLAB bridge.
+
+  On the other side of the network, we also implemented a 
+  controller in MATLAB for the Tennesee Eastman system.  This
+  used steady state calculations to determine the optimal controls.
+  The controller would input the output vector from the Tennessee
+  Eastman system via the MATLAB bridge, and output a set of input
+  vectors to be transmitted across the network into the MATLAB
+  bridge.
 
 \subsection{C++ to MATLAB Bridge}
 
