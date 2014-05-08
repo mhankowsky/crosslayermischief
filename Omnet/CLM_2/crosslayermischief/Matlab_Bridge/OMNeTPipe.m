@@ -24,7 +24,7 @@ classdef OMNeTPipe
             % Set up connection
             obj.serverConn = tcpip(host, port, 'NetworkRole', 'server');
             set(obj.serverConn, 'InputBufferSize', 4096);
-            set(obj.serverConn, 'Timeout', 100);
+            set(obj.serverConn, 'Timeout', 10);
             fopen(obj.serverConn);
             
             % Send synchronizing byte

@@ -1,1 +1,7 @@
 *.swp
+.cproject
+*results
+*.vec
+*.vci
+*.o
+Omnet/CLM_2/out

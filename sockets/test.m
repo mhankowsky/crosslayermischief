@@ -1,12 +1,15 @@
 function [ ] = test( )
 %Tests the socket linking
-
+disp('Starting test, connecting....')
 o = OMNeTPipe();
-pk = OMNeTPk('header');
-addVal(pk, 'a', 1, o.typeInt);
-
-sendPk(o, pk);
-
+disp('Connected')
+while (1 == 1)
+    disp(' Reading new packet')
+    [h, v] = recvPk(o);
+    disp(' Packet received:')
+    dips(h)
+    disp(v('t'))
+end   
 
 end
 

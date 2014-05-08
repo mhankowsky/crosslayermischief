@@ -187,10 +187,14 @@ classdef SimpleTE
             obj.X_4 = obj.nom_X_4;
             
             % Initialize inputs
-            obj.u_1 = obj.nom_u_1;
-            obj.u_2 = obj.nom_u_2;
-            obj.u_3 = obj.nom_u_3;
-            obj.u_4 = obj.nom_u_4;
+            obj.u_1 = 100;
+            obj.u_2 = 0;
+            obj.u_3 = 0;
+            obj.u_4 = 100;
+            %obj.u_1 = obj.nom_u_1;
+            %obj.u_2 = obj.nom_u_2;
+            %obj.u_3 = obj.nom_u_3;
+            %obj.u_4 = obj.nom_u_4;
             
             % Initialize outputs
             obj.F_1  = obj.nom_F_1;
@@ -207,8 +211,10 @@ classdef SimpleTE
             % Initialize bar_X_4
             obj.sum_X_4 = obj.nom_X_4;
             obj.trials = 1;
-            obj.bar_X_4 = obj.sum_X_4 / obj.trials;
-  
+            %obj.bar_X_4 = obj.sum_X_4 / obj.trials;
+            obj.bar_X_4 = 47.03024823457651
+            [x0, VL] = SimpleControl.TESteadyState();
+            obj.bar_X_4 = x0(8);
         end
         
         %% Accessor functions
@@ -235,8 +241,10 @@ classdef SimpleTE
             u = [obj.u_1, obj.u_2, obj.u_3, obj.u_4];
         end
         
+
+        
         %% Run an interation of tennesee eastman
-        function [ obj ] = runIteration( obj, u , dt)
+        function [ new_obj ] = runIteration( obj, u, dt)
             % Convert inputs to something useful
             obj.u_1 = u(1);
             obj.u_2 = u(2);
@@ -244,45 +252,60 @@ classdef SimpleTE
             obj.u_4 = u(4);
             
             % Total Molar holdup
+            % N = N_a + N_b + N_c
             N = obj.N_a + obj.N_b + obj.N_c;
             
             % Purge amounts
+            % y_n3 = N_n / N
             obj.y_a3 = obj.N_a / N;
             obj.y_b3 = obj.N_b / N;
             obj.y_c3 = obj.N_c / N;
 
             % Liquid inventory (volume of liquid)
+            % V_L = N_d / p_L
             obj.V_L = obj.N_d / obj.p_L;
 
             % Volume of vapor
+            % V_v = V - V_L
             V_v = obj.V - obj.V_L;
             
             % Ideal gas law (get pressure of system)
+            % P = N * R * T / V_v
             obj.P = N .* obj.R .* obj.T / V_v;
 
             % Pressures of given parts
+            % P_n = y_n3 * P
             P_a = obj.y_a3 .* obj.P;
             P_b = obj.y_b3 .* obj.P;
             P_c = obj.y_c3 .* obj.P;
 
             % Production rate of D
+            % R_d = k_0 * (P_a ^ 1.2) * (P_c ^ 0.4)
             R_d = obj.k_0 .* (P_a .^ 1.2) .* (P_c .^ 0.4);
 
             % Feed flow measurements
+            % F_n_max * (X_n / 100)
             obj.F_1 = obj.F_1_max .* (obj.X_1/100);
             obj.F_2 = obj.F_2_max .* (obj.X_2/100);
 
             % Purge flow measurement
+            % (X_3 / 100) * C_v4 * sqrt(P - 100)
             obj.F_3 = (obj.X_3/100) .* obj.C_v3 .* sqrt(obj.P - 100);
 
             % Product flow measurement
+            % (X_4 / 100) * C_v4 * sqrt(P - 100)
             obj.F_4 = (obj.X_4/100) .* obj.C_v4 .* sqrt(obj.P - 100);
 
             % Instantaneous operating cost
+            % (F_3 / F_4) * (2.206 * y_a3 + 6.177 * y_c3)
             obj.C = (obj.F_3 / obj.F_4) .* (2.206 .* obj.y_a3 + 6.177 .* obj.y_c3);
 
             %% FIXME use real derivatives
             % Update N_a-d state
+            % dN_a = (y_a1 * F_1) + F_2 - (y_a3 * F_3) - R_d
+            % dN_b = (y_b1 * F_1) - (y_b3 * F_3)
+            % dN_c = (y_c1 * F_1) - (y_c3 * F_3) - R_d
+            % dN_d = R_d - F_4
             dN_a = obj.y_a1 .* obj.F_1 + obj.F_2 - obj.y_a3 * obj.F_3 - R_d;
             dN_b = obj.y_b1 .* obj.F_1 - obj.y_b3 .* obj.F_3;
             dN_c = obj.y_c1 .* obj.F_1 - obj.y_c3 .* obj.F_3 - R_d;
@@ -316,12 +339,12 @@ classdef SimpleTE
             
             obj.trials = obj.trials + 1;
             obj.sum_X_4 = obj.sum_X_4 + obj.X_4;
-            obj.bar_X_4 = obj.sum_X_4 / obj.trials;
+            %obj.bar_X_4 = obj.sum_X_4 / obj.trials;
   
             %% Finish up state and outputs
             % Setup outputs
             y = [obj.F_1, obj.F_2, obj.F_3, obj.F_4, obj.P, obj.V_L, obj.y_a3, obj.y_b3, obj.y_c3, obj.C];
-
+            y
             % Setup new state
             x_new = [N_a_new, N_b_new, N_c_new, N_d_new, X_1_new, X_2_new, X_3_new, X_4_new];
             
@@ -333,6 +356,7 @@ classdef SimpleTE
             obj.X_2 = X_2_new;
             obj.X_3 = X_3_new;
             obj.X_4 = X_4_new;
+            new_obj = obj;
         end
 
 

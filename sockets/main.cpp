@@ -2,31 +2,49 @@
 using std::cout;
 using std::cerr;
 using std::endl;
-#include "OMNeTPk.hpp"
-#include "OMNeTPipe.hpp"
+#include "OMNeTPk.h"
+#include "OMNeTPipe.h"
 
 int main(int argc, char **argv) {
   cout << "Starting up..." << endl;
-  OMNeTPipe* p = new OMNeTPipe("localhost", 18637);
+  OMNeTPipe* pipeC = new OMNeTPipe("localhost", 18100);
+  OMNeTPipe* pipeA = new OMNeTPipe("localhost", 18240);
+  OMNeTPk* pk;
+  OMNeTPk up ("UPDATE");
+  int p;
+  float f = 0.001;
 
-  OMNeTPk* pk = new OMNeTPk("HEAD");
-  OMNeTPk* rpk;
+  cout << "Connected!" << endl;
 
-  float x = 1.2;
+  up.addVal("id", (void*)1, TYPE_INT);
+  up.addVal("dt", FLOAT(f), TYPE_FLOAT);
 
-  // Add a value to the packet
-  pk->addVal("v", (void*) 3, TYPE_INT);
-  pk->addVal("GGG", FLOAT(x), TYPE_FLOAT);
+  pipeA->sendPk(up);
 
-  cout << "Hi!" << endl;
-  p->sendPk(*pk);
+  p = fork();
 
-  cout << "sent!" << endl;
-  rpk = p->recvPk();
-
-  cout << "H: '" << rpk->getHeader() << "' Size: " << rpk->getSize() << endl;
-
-  cout << "got it!" << endl;
+  /* Sit on the pipe and pass through whatever pk you get */
+  while (1)
+  {
+	if (p == 0)
+	  {
+		cout << "(C) Getting packet..." << endl;
+		pk = pipeC->recvPk();
+		cout << "(C) Packet received (" << pk->getHeader() << ")" << endl;
+    //sleep(1);
+		pipeA->sendPk(*pk);
+		cout << "(A) Packet sent!" << endl;
+	  }
+	else
+	  {
+		cout << "(A) Getting packet..." << endl;
+		pk = pipeA->recvPk();
+		cout << "(A) Packet received (" << pk->getHeader() << ")" << endl;
+    //sleep(1);
+		pipeC->sendPk(*pk);
+		cout << "(C) Packet sent!" << endl;
+	  }	
+  }
 
   return 0;
 }
