@@ -32,8 +32,11 @@ implementation of INET messages that allow custom data fields to be created and 
 \subsubsection{Factory Bridge}
 
 \subsection{Matlab Simulation}
+ We chose to use MATLAB simulation for the physical system and it's controls, as there are many chemical process models currently implemented in MATLAB. This allows for the ease of swapping out current MATLAB models for new ones.
 
 \subsubsection{Tennessee Eastman}
+ In order to keep the complexity down, we decided to model the chemical process in the plant as a simplified Tennessee Eastman problem\citation{Ricker}. Due to this approach, we looked to previous work in the field, and found many models already modeled in a hybrid of FORTRAN and MATLAB.  However, this introduced more complexity, due to using three different programming languages to implement what should be simpler.  Therefore, we would build a custom MATLAB class that contained the same functionality.  This includes a both the simulation of the actual Tennessee Eastman system, and the steady state controller calculations.
+
 
 \subsection{C++ to Matlab Bridge}
 
