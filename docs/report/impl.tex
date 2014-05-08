@@ -1,25 +1,17 @@
 \section{Implementation}
 \subsection{Simulated Network}
 
-The network of our simulation is designed to give a real-time nature to the data transfer between the Tennessee Eastman(TE) physical simulation and the TE Controller. Both the controller and simulation are written in Matlab and connected to our network with the OMNeTBridge Class. 
-
-
-\subsection{Controller}
-
-
+\subsubsection{Controller}
 
 \subsubsection{Actuator}
 
-The actuator acts as a server which receives an update packet from the controller, grabs its appropriate data from the controller OMNeTBridge and then passes it to the correct function. 
-
 \subsubsection{Sensor}
 
+\subsubsection{Internet Cloud}
 
-The Sensor is a relatively simple module that sends an update signal based on a timer. This is to model the refresh rate of most sensors. We have assumed that all sensors and network controllable and are able to tirelessly connect to a local access point via 802.11 Wireless LAN. 
+\subsubsection{Factory Access Point}
 
-These modules send a TCP packet to a known IP address which in turn triggers the controller to update. This is a non-ideal method of updating as it does not allow correct implementation of attacking the data on the network. Ideally INET's TCP packets would allow us to send data to them, however as some modules are currently implemented deep copies are not done of messages or inappropriate casts are used. Future work should be planned to modify these modules or find a more correct
-implementation of INET messages that allow custom data fields to be created and sent. 
-
+\subsubsection{Factory Bridge}
 
 \subsection{MATLAB Simulation}
   Our MATLAB both simulated a system and a controler of the
