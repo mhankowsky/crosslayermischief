@@ -353,7 +353,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Bare Demo of IEEEtran.cls for Conferences}
+\title{Cross-Layer Mischief in Networked Control Systems}
 
 
 % author names and affiliations
@@ -402,7 +402,7 @@ Pittsburgh, USA\\
 
 \begin{abstract}
 %\boldmath
-SCADA systems are becoming increasingly prevalent, especially wirelessly networked control systems. [citation]  The integration of wireless networking into the operation of these SCADA systems is good for many reasons, but these integrations often ignore security as a priority.  [citation] Our goal is to better understand the capabilities and the vulnerabilities these systems characteristically possess.  In order to do this we will explore the use of cross-layer attacks on networked control systems and develop a framework for testing these attacks.  We have developed testbed consists of a simulated network, a simulated factory driven by a matlab-ran Tennessee-Eastman process and the interface between these systems.  Our research has confirmed that these vulnerabilities are exploitable and we have established this in our testbed.  These vulnerabilities point to the necessity for a change in the way we look at securing SCADA integrated wireless networks.
+SCADA  (supervisory control and data acquisition) systems are becoming increasingly prevalent, especially wirelessly networked control systems. [citation]  The integration of wireless networking into the operation of these SCADA systems is good for many reasons, but these integrations often ignore security as a priority.  [citation] Our goal is to better understand the capabilities and the vulnerabilities these systems characteristically possess.  In order to do this we will explore the use of cross-layer attacks on networked control systems and develop a framework for testing these attacks.  We have developed testbed consists of a simulated network, a simulated factory driven by a matlab-ran Tennessee-Eastman process and the interface between these systems.  Our research has confirmed that these vulnerabilities are exploitable and we have established this in our testbed.  These vulnerabilities point to the necessity for a change in the way we look at securing SCADA integrated wireless networks.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -443,6 +443,8 @@ SCADA systems are becoming increasingly prevalent, especially wirelessly network
 \input{attacks}
 
 \input{discuss}
+
+\input{future}
 
 \input{concl}
 
@@ -530,12 +532,6 @@ SCADA systems are becoming increasingly prevalent, especially wirelessly network
 
 
 
-\section{Conclusion}
-The conclusion goes here.
-
-
-
-
 % conference papers do not normally have an appendix
 
 
@@ -543,7 +539,7 @@ The conclusion goes here.
 \section*{Acknowledgment}
 
 
-The authors would like to thank...
+The authors would like to thank Bruce DeBruhl for guiding our research and for helping us to refine our ideas.
 
 
 
@@ -573,10 +569,33 @@ The authors would like to thank...
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
+\bibitem{IEEEhowto:siaterlis}
+Siaterlis~et~al., \emph{EPIC: A Testbed for Scientifically Rigorous Cyber-Physical Security Experimentation}, Vol~1,~No.2~\relax IEEE Transactions on Emerging Topics in Computing, 2013.
+\bibitem{IEEEhowto:mo}
+Mo~et~al., \emph{Cyber-Physical Security of a Smart Grid Infrastructure}, Vol.~100,~No.1~\relax Proceedings of the IEEE, 2012.
+\bibitem{IEEEhowto:cardenas}
+Cardenas~et~al., \emph{Challenges for Securing Cyber Physical Systems}, 2009.
+\bibitem{IEEEhowto:ricker}
+N. L. Ricker, \emph{Model predictive control of a continuous, nonlinear, two-phase reactor}, Seattle, WA: University of Washington, 1993.
+\bibitem{IEEEhowto:hayes}
+A. Hayes, \emph{Network Service Authentication Timing Attacks}, IEEE Computer and Reliability Societies, 2013.
+\bibitem{IEEEhowto:beitollahi}
+H.~Beitollahi,~G.~Deconinck,~\emph{A Dependable architecture to mitigate distributed denial of service attacks on network-based control systems}, Vol.4,~International Journal of Critical Infrastructure Protection, 2011.
+\bibitem{IEEEhowto:radosavac}
+S.~Radosavac,~N~Benahammar and~JS~Baras, \emph{Cross-layer attacks in wireless ad hoc networks},\relax Princeton, New Jersey: Conference on Information Sciences and Systems, 2004.
+\bibitem{IEEEhowto:amin}
+S.~Amin,~A.~Cardenas~and~S.S.~Sastry, \emph{Safe and Secure Networked Control Systems under Denial-of-Service Attacks}, Berlin, Germany: Springer-Verlag, 2009.
+\bibitem{IEEEhowto:hashimoto}
+Hashimoto et al., \emph{Safety securing approach against cyber-attacks for process control system}, Vol.~57,\relax Nagoya, Japan: Computers and Chemical Engineering, 2013.
+\bibitem{IEEEhowto:mosinopoli}
+Y.~Mo~and~B.~Sinopoli, \emph{Secure Control Against Replay Attacks}, 47th \relax Illinois, USA: Annual Alerton Conference, 2009.
+\bibitem{IEEEhowto:mclaughlin}
+S.~McLaughlin, \emph{Securing Control Systems from the Inside: A Case for Mediating Physical Behaviors},\relax IEEE Security \& Privacy, 2013.
+\bibitem{IEEEhowto:chen}
+X. Chen, K. Makki, K. Yen and N. Pissinou, \emph{Sensor Network Security: A Survey}, Vol. 11, No. 2\relax IEEE Communications Surveys \& Tutorials, 2009.
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 \end{thebibliography}
 
 
