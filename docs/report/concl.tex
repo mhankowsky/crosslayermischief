@@ -1,2 +1,6 @@
 \section{Conclusion}
-We have developed a 
+We have developed a three main components in this process. The first is a MATLAB model of both the TE Controller and Simulation that is ready to be integrated with OMNET. The second is a OMNeT-MATLAB bridge that allows easy data transfer between the two systems. Finally we have also established a trivial OMNeT simulation that can be attacked and show how all of these pieces fit together. 
+
+From these three man components and from basic attacks it is easy to see how a "best effort" system such as TCP is not a reliable means of communication for remote systems that do not have any sort of control on their local networks. These industrial processes are relatively fragile and their real-time constraints must be appreciated accordingly. 
+
+Furthermore in most SCADA systems there are multible plants needed to be controlled. In our current simulation model more plants can easily be added and the OMNeTBridge class also allows for this addition. More research should be done on systems where there is basic local control and multiple plants compete, based on commands from the central controller, to fulfill a goal such as meeting a ever changing power or production demand.  
