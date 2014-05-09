@@ -14,7 +14,7 @@ The network of our simulation is designed to give a real-time nature to the data
 
 \subsection{Controller}
 
-The controller is essentially a server module that takes in signals from each sensor, pulls the relevant data from the MATLAB simulation and sends it to the MATLAB based controller. This process allows us to accurately simulate the network passing packets while avoiding the headache that is implementing actual data passing packets in OMNeT. Th
+The controller is essentially a server module that takes in signals from each sensor, pulls the relevant data from the MATLAB simulation and sends it to the MATLAB based controller. This process allows us to accurately simulate the network passing packets while avoiding the headache that is implementing actual data passing packets in OMNeT. This module is based on the "StandardHost" from INET with a custom TCP application running on the host that transmits the data to the actuators at a specific time interval. There is also a number of servers that the controller runs which listen for the senor values. They are also modeled as INET TCP apps. 
 
 
 \subsubsection{Actuator}
@@ -24,6 +24,8 @@ appropriate data from the controller OMNeTBridge and then passes it to the corre
 When these modules receive a data packet from the Controller IP address they then grab the current data from the Controller Bridge and pass it to the Simulation Bridge. 
 
 It is again a very simple module where most of the TCP application is focused on receiving a certain type of packet. These modules are also based on the INET "StandardHost" and are connected to the rest of the network wirelessly using 802.11 Wifi cards. These modules also lacked ideal implementation due to INET messages not being able to easily accept custom fields.  
+
+The receiving of messages if done through a TCP application that acts as basic one thread server, handling one request at a time. Due to the low complexity of the requests this was fine for our use. 
 
 
 \subsubsection{Sensor}
