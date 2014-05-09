@@ -1,10 +1,9 @@
 \section{Introduction}
 % no \IEEEPARstart
-The growing prevalence of SCADA systems have brought much needed attention to the class of cyberphysical threats.  This paper examines the specific effects and testing of cyberphysical threats in wireless networking.  Our intent is to simulate a networked control system similar to that of what one might find in a chemical plant. We approached
-Stuxnet destroyed a fifth of Iran's nuclear centrifuges.  This is one simple example of SCADA 
-SCADA Systems ... [ more on scada ]
+The growing prevalence of SCADA systems have brought much needed attention to the class of cyberphysical threats.  This paper examines the specific effects and testing of cyberphysical threats in wireless networking.  Our intent is to simulate a networked control system similar to that of what one might find in a chemical plant. 
 
+We approached this topic from a high-level, devising a system that would allow for many different types of systems to be simulated in a real way. This robust system would allow a MATLAB simulation of the physical process, weather chemical, electrical, or something more exotic like nuclear power. We when would build a network model in OMNeT, using the INET framework, to model the physical plant sending messages to a remote controller. Finally we would have another MATLAB simulation that would act as our controller and respond to the outputs of the physical simulation. 
 
+The glue holding these different components together would be a bridge between MATLAB and OMNET, allowing messages and data to easily be passed back and forth. This would create the most realistic simulation, from which we can attack the network and analyze the results both on the network and on the physical process. 
 
-\subsection{The Framework}
-Subsection text here.
+This type of simulation could be crucial in understanding how our current infrastructure systems are vulnerable to attacks as well as test new information architectures that would allow more secure data transfer. In actually devising out OMNeT network and MATLAB models we have made many assumptions about what we believe our network should look like. We would encourage anyone with more knowledge of SCADA systems to revise our OMNeT model and system to allow different types of control applications to be simulated.  
